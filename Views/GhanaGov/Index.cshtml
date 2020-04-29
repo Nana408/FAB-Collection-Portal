@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<div id="overlay"></div>*@
+<!-- MAIN CONTENT-->
+<div class="main-content">
+    <div class="section__content section__content--p30">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-header">Ghana.Gov Payment</div>
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h3 class="text-center title-2">Pay Invoice</h3>
+                            </div>
+                            <hr>
+
+                            <div id='loader'>
+
+                                <img src="~/Content/Images/Loader.gif" />
+                            </div>
+
+                            <form action="" method="post" novalidate="novalidate">
+                                <div class="form-group">
+                                    <label for="cc-invoice" class="control-label mb-1">Invoice Number <span class="required-indicator"> * </span></label>
+                                    <input id="cc-invoice" name="cc-payment" type="text" class="form-control" aria-required="true" aria-invalid="false">
+                                    <span class="help-block">Please enter your customer invoice</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cc-status" class="control-label mb-1">Invoice Status</label>
+                                    <input id="cc-status" name="cc-payment" type="text" class="form-control" disabled="" aria-required="true" aria-invalid="false">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cc-totalAmount" class="control-label mb-1">Total Amount</label>
+                                    <input id="cc-totalAmount" name="cc-payment" type="text" class="form-control" disabled="" aria-required="true" aria-invalid="false">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cc-currency" class="control-label mb-1">Currency</label>
+                                    <input id="cc-currency" name="cc-payment" type="text" class="form-control" disabled="" aria-required="true" aria-invalid="false">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cc-description" class="control-label mb-1">Description</label>
+                                    <input id="cc-description" name="cc-payment" type="text" class="form-control" disabled="" aria-required="true" aria-invalid="false">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cc-expiryDate" class="control-label mb-1">Expiry Date</label>
+                                    <input id="cc-expiryDate" name="cc-payment" type="text" class="form-control" disabled="" aria-required="true" aria-invalid="false">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cc-payOption" class="control-label mb-1">Payment Option <span class="required-indicator"> * </span></label>
+                                    <div class="col-12 col-md-12">
+                                        <select name="select" id="select" class="form-control">            
+                                            <option value="1">Cash</option>
+                                            <option value="2">Cheque</option>
+                                        </select>
+                                    </div>  
+                                </div>
+                                <div class="form-group">
+                                    <label for="cc-amount" class="control-label mb-1">Amount <span class="required-indicator"> * </span></label>
+                                    <input id="cc-amount" name="cc-payment" type="text" class="form-control" aria-required="true" aria-invalid="false">
+                                 
+                                </div>
+
+                                <div id="chequeDetails">
+                                    <div class="form-group">
+                                        <label for="cc-bankBanchSortCode" class="control-label mb-1">Bank Banch Sort Code <span class="required-indicator"> * </span></label>
+                                        <input id="cc-bankBanchSortCode" name="cc-bankBanchSortCode" type="text" class="form-control" aria-required="true" aria-invalid="false">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cc-accountNumber" class="control-label mb-1">Account Number <span class="required-indicator"> * </span></label>
+                                        <input id="cc-accountNumber" name="cc-accountNumber" type="text" class="form-control" aria-required="true" aria-invalid="false">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cc-chequeNumber" class="control-label mb-1">Cheque Number <span class="required-indicator"> * </span></label>
+                                        <input id="cc-chequeNumber" name="cc-chequeNumber" type="text" class="form-control" aria-required="true" aria-invalid="false">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cc-valueDate" class="control-label mb-1">Value Date <span class="required-indicator"> * </span></label>
+                                        <input id="cc-valueDate" name="cc-valueDate" type="date" class="form-control" aria-required="true" aria-invalid="false">
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="pull-left">
+                                        <button id="payment-verify" type="submit" class="btn btn-lg btn-info btn-block">
+                                            <i class="fa fa-lock fa-lg"></i>&nbsp;
+                                            <span id="payment-button-amount">Verify...</span>
+                                            <span id="payment-button-sending" style="display:none;">Sending…</span>
+                                        </button>
+                                    </div>
+                                    <div class="pull-right">
+                                        <button id="payment-pay" type="submit" class="btn btn-lg btn-info btn-block">
+                                            <i class="fa fa-lock fa-lg"></i>&nbsp;
+                                            <span id="payment-button-amount">Pay...</span>
+                                            <span id="payment-button-sending" style="display:none;">Sending…</span>
+                                        </button>
+                                    </div>
+
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<div id="loader">
+
+            <img src="~/Content/Images/Loader.gif" width="100" height="100" />
+        </div>*@
+</div>

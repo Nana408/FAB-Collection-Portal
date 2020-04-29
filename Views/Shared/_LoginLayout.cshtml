@@ -1,0 +1,64 @@
+﻿<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>FAB:: Merchant Portal</title>
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Modern Login Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
+    <script type="application/x-javascript">
+         addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+        function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- Meta tag Keywords -->
+    <!-- css files -->
+
+    <link rel="stylesheet" href="~/Content/style.css" type="text/css" media="all" /> <!-- Style-CSS -->
+    <link rel="stylesheet" href="~/Content/font-awesome.css"> <!-- Font-Awesome-Icons-CSS -->
+    <!-- //css files -->
+    <!-- web-fonts -->
+    @* <link href="//fonts.googleapis.com/css?family=Snippet" rel="stylesheet"><!--online fonts-->*@
+    <link href="~/Content/Snippet.css" rel="stylesheet" />
+    <!-- //web-fonts -->
+</head>
+@*<video controls="controls">
+    <source src="~/Content/Videos/keyboard.mp4" type="video/mp4" />
+</video>*@
+<body>
+    <div data-vide-bg="/Content/Videos/keyboard">
+        <div class="main-container">
+            <!--header-->
+            <div class="header-w3l">
+                <h1>FAB Merchant Login Form</h1>
+            </div>
+            <!--//header-->
+            <!--main-->
+            <div class="main-content-agile">
+                <div class="w3ls-pro">
+                    <h2>Login Now</h2>
+                </div>
+                <div class="sub-main-w3ls">
+                    @RenderBody()
+                </div>
+            </div>
+            <!--//main-->
+            <!--footer-->
+            <div class="footer">
+                <p>&copy; @DateTime.UtcNow.Year First Atlantic Bank Limited. All rights reserved | Design by <a href="https://www.firstatlanticbank.com.gh/">First Atlatic Bank</a></p>
+            </div>
+            <!--//footer-->
+        </div>
+    </div>
+    <!-- js -->
+    <script type="text/javascript" src="~/Scripts/jquery-2.1.4.min.js"></script><!--common-js-->
+    <script src="~/Scripts/jquery.vide.min.js"></script><!--video-js-->
+    <!-- //js -->
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

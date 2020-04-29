@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FABMerchantPortalDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TransactionLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Identifier" Type="nvarchar" MaxLength="256" />
+          <Property Name="SourceID" Type="nvarchar" MaxLength="50" />
+          <Property Name="Branch" Type="nvarchar" MaxLength="50" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TransactionType" Type="nvarchar" MaxLength="256" />
+          <Property Name="EntryDate" Type="datetime" />
+          <Property Name="CoreBankingReference" Type="nvarchar" MaxLength="256" />
+          <Property Name="ThirdPartyReference" Type="nvarchar" MaxLength="256" />
+          <Property Name="LogId" Type="int" Nullable="false" />
+          <Property Name="ResponseJson" Type="text" />
+          <Property Name="TransactionStatus" Type="nvarchar" MaxLength="256" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="256" />
+          <Property Name="ModifiedDate" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="UserLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserAgent" Type="varchar" MaxLength="200" />
+          <Property Name="UserFunction" Type="varchar" MaxLength="100" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="TransStatus" Type="varchar" MaxLength="50" />
+          <Property Name="SourceID" Type="varchar" MaxLength="256" />
+          <Property Name="SourceName" Type="varchar" MaxLength="256" />
+          <Property Name="RequestBody" Type="nvarchar(max)" />
+          <Property Name="ResponseBody" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_TransactionLog_UserLog">
+          <End Role="UserLog" Type="Self.UserLog" Multiplicity="1" />
+          <End Role="TransactionLog" Type="Self.TransactionLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserLog">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TransactionLog">
+              <PropertyRef Name="LogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FABMerchantPortalDBModelStoreContainer">
+          <EntitySet Name="TransactionLog" EntityType="Self.TransactionLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserLog" EntityType="Self.UserLog" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_TransactionLog_UserLog" Association="Self.FK_TransactionLog_UserLog">
+            <End Role="UserLog" EntitySet="UserLog" />
+            <End Role="TransactionLog" EntitySet="TransactionLog" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FABMerchantPortalDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FABMerchantPortalDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UserLogs" EntityType="FABMerchantPortalDBModel.UserLog" />
+          <EntitySet Name="TransactionLogs" EntityType="FABMerchantPortalDBModel.TransactionLog" />
+          <AssociationSet Name="FK_TransactionLog_UserLog" Association="FABMerchantPortalDBModel.FK_TransactionLog_UserLog">
+            <End Role="UserLog" EntitySet="UserLogs" />
+            <End Role="TransactionLog" EntitySet="TransactionLogs" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="UserLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserAgent" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="UserFunction" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="TransStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SourceID" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="SourceName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="RequestBody" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ResponseBody" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TransactionLogs" Relationship="FABMerchantPortalDBModel.FK_TransactionLog_UserLog" FromRole="UserLog" ToRole="TransactionLog" />
+        </EntityType>
+        <EntityType Name="TransactionLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Identifier" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="SourceID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Branch" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TransactionType" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EntryDate" Type="DateTime" Precision="3" />
+          <Property Name="CoreBankingReference" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ThirdPartyReference" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="LogId" Type="Int32" Nullable="false" />
+          <Property Name="ResponseJson" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TransactionStatus" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ModifiedDate" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserLog" Relationship="FABMerchantPortalDBModel.FK_TransactionLog_UserLog" FromRole="TransactionLog" ToRole="UserLog" />
+        </EntityType>
+        <Association Name="FK_TransactionLog_UserLog">
+          <End Type="FABMerchantPortalDBModel.UserLog" Role="UserLog" Multiplicity="1" />
+          <End Type="FABMerchantPortalDBModel.TransactionLog" Role="TransactionLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserLog">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TransactionLog">
+              <PropertyRef Name="LogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FABMerchantPortalDBModelStoreContainer" CdmEntityContainer="FABMerchantPortalDBEntities">
+          <EntitySetMapping Name="UserLogs">
+            <EntityTypeMapping TypeName="FABMerchantPortalDBModel.UserLog">
+              <MappingFragment StoreEntitySet="UserLog">
+                <ScalarProperty Name="ResponseBody" ColumnName="ResponseBody" />
+                <ScalarProperty Name="RequestBody" ColumnName="RequestBody" />
+                <ScalarProperty Name="SourceName" ColumnName="SourceName" />
+                <ScalarProperty Name="SourceID" ColumnName="SourceID" />
+                <ScalarProperty Name="TransStatus" ColumnName="TransStatus" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="UserFunction" ColumnName="UserFunction" />
+                <ScalarProperty Name="UserAgent" ColumnName="UserAgent" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionLogs">
+            <EntityTypeMapping TypeName="FABMerchantPortalDBModel.TransactionLog">
+              <MappingFragment StoreEntitySet="TransactionLog">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="TransactionStatus" ColumnName="TransactionStatus" />
+                <ScalarProperty Name="ResponseJson" ColumnName="ResponseJson" />
+                <ScalarProperty Name="LogId" ColumnName="LogId" />
+                <ScalarProperty Name="ThirdPartyReference" ColumnName="ThirdPartyReference" />
+                <ScalarProperty Name="CoreBankingReference" ColumnName="CoreBankingReference" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Branch" ColumnName="Branch" />
+                <ScalarProperty Name="SourceID" ColumnName="SourceID" />
+                <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

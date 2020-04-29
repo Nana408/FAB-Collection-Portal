@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "";
+
+}
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Acceptable User Declaration | error</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="~/Content/Errors/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href='http://fonts.googleapis.com/css?family=Fenix' rel='stylesheet' type='text/css' />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="wrap">
+            <div class="main">
+                <h3>
+                    <img src="~/Content/Errors/images/FAB.png" alt="" class="myghlogo" />
+                </h3>
+                <!---728x90--->
+                <h1>Oops!!! Something went wrong</h1>
+                <p>
+                    There are lots of reasons why this page is<span class="error"> @ViewBag.StatusCode</span>.<br />
+                    <span>Don't waste your time enjoying the look of it</span>
+                </p>
+                <!---728x90--->
+                <div class="home">
+
+
+
+                    <a href="@Url.Action("GetRecords","Home")" class="just new">Return Home</a>
+                    <a href="@Url.Action("LogOff","Account")" class="just">Logout</a>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </form>
+</body>
+</html>

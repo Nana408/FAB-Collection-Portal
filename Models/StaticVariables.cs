@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace FAB_Merchant_Portal.Models
+{
+    public static class StaticVariables
+    {
+        public static int  SUCCESSSTATUS = 1;
+
+        public static string SUCCESSSTATUSMASSAGE = "Request Successful";
+
+        public static int  FAILSTATUS = 0;
+
+        public static string FAILSTATUSMASSAGE = "Request Failed";
+
+
+        public static string SERVERERRORSTATUS = "2";
+
+        public static string SERVERERRORMASSAGE = "Unable to connect to remote host";
+
+        public static string EXCEPTIONERROR = "ErrorLog";
+    }
+}

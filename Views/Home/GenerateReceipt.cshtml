@@ -1,0 +1,154 @@
+﻿
+@{
+    Layout = null;
+}
+@{
+    string thirdPartyReference = ViewBag.ThirdPartyReference;
+    string transactionType = ViewBag.TransactionType;
+    decimal amount = ViewBag.Amount;
+    string corebankingReference = ViewBag.CorebankingReference;
+    string branch = ViewBag.Branch;
+    string identifier = ViewBag.Identifier;
+    DateTime? transactionDate = ViewBag.TransactionDate;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>FAB || Generate Receipt</title>
+    <link rel="icon" type="image/png" href="~/Content/Images/FAB.png">
+    <link href="~/Content/Receipt.css" rel="stylesheet" />
+    <script src="~/Scripts/Receipt.js"></script>
+</head>
+<body>
+
+    <div class="toolbar hidden-print">
+        <div class="text-right">
+            <button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i> Print</button>
+            <button class="btn btn-info"><i class="fa fa-file-pdf-o"></i> Export as PDF</button>
+        </div>
+        <hr>
+    </div>
+
+    <div id="invoice-POS">
+
+        <center id="top">
+            <div class="logo"></div>
+            <div class="info">
+                <h2>First Atlantic Bank Ghana</h2>
+            </div>
+            <!--End Info-->
+        </center>
+        <!--End InvoiceTop-->
+
+        <div id="mid">
+            <div class="info">
+                <h2>Contact Info</h2>
+                <p>
+                    Atlantic Place<br />
+
+                    No. 1 Seventh Avenue<br />
+
+                    Ridge West,Accra, Ghana<br />
+
+                    +233 (0)30 268 2203, 268 0825<br />
+
+                    info@firtatlanticbank.com.gh<br />
+
+                </p>
+            </div>
+        </div>
+        <!--End Invoice Mid-->
+
+        <div id="bot">
+
+            <div id="table">
+                <table>
+                    <tr class="tabletitle">
+                        <td class="item">
+                            <h2>Key</h2>
+                        </td>
+
+                        <td class="Rate">
+                            <h2>Value</h2>
+                        </td>
+                    </tr>
+
+                    <tr class="service">
+                        <td class="tableitem">
+                            <p class="itemtext">Identifier</p>
+                        </td>
+
+                        <td class="tableitem">
+                            <p class="itemtext">@identifier</p>
+                        </td>
+                    </tr>
+
+                    <tr class="service">
+                        <td class="tableitem">
+                            <p class="itemtext">Transaction Type</p>
+                        </td>
+
+                        <td class="tableitem">
+                            <p class="itemtext">@transactionType</p>
+                        </td>
+                    </tr>
+
+                    <tr class="service">
+                        <td class="tableitem">
+                            <p class="itemtext">Merchant Reference</p>
+                        </td>
+
+                        <td class="tableitem">
+                            <p class="itemtext">@thirdPartyReference</p>
+                        </td>
+                    </tr>
+
+                    <tr class="service">
+                        <td class="tableitem">
+                            <p class="itemtext">Bank Reference</p>
+                        </td>
+
+                        <td class="tableitem">
+                            <p class="itemtext">@corebankingReference</p>
+                        </td>
+                    </tr>
+
+                    <tr class="service">
+                        <td class="tableitem">
+                            <p class="itemtext">Transaction Date</p>
+                        </td>
+
+                        <td class="tableitem">
+                            <p class="itemtext">@transactionDate</p>
+                        </td>
+                    </tr>
+
+                    <tr class="service">
+                        <td class="tableitem">
+                            <p class="itemtext">Paid Amount</p>
+                        </td>
+
+                        <td class="tableitem">
+                            <p class="itemtext">GHS @amount</p>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            <!--End Table-->
+
+            <div id="legalcopy">
+                <p class="legal">
+                    <strong>...refreshingly  different!</strong>
+                </p>
+            </div>
+
+        </div>
+        <!--End InvoiceBot-->
+    </div>
+    <!--End Invoice-->
+</body>
+</html>

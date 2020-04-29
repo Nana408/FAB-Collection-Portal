@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+
+}
+
+
+
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", role = "form" }))
+{
+    @Html.AntiForgeryToken() // this is for prevent CSRF attack
+
+    <input placeholder="Enter your Unsername" name="UserName" type="text" required="">
+    <span class="icon1"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+    <input placeholder="Enter Password" name="Password" type="password" required="">
+    <span class="icon2"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+    <div class="checkbox-w3">
+        <span class="check-w3"><input type="checkbox" />Remember Me</span>
+          <a href="#">Forgot Password?</a>
+        <div class="clear"></div>
+    </div>
+    <div class="form-group error">
+        @if (@ViewBag.Failedcount != null)
+        {
+
+            <label> Failed Attempt count is: @ViewBag.Failedcount</label>
+        }
+
+        @if (@ViewBag.NotValidUser != null)
+        {
+
+            <label> @ViewBag.NotValidUser</label>
+        }
+    </div>
+    <div class="social-icons">
+        <ul>
+            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+            <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+        </ul>
+    </div>
+    <input type="submit" value="">
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
