@@ -21,7 +21,7 @@ namespace FAB_Merchant_Portal.Models
     public static class UserFunctions
     {
 
-        public static bool GetTellerTransactions(int logId, string sourceId, DateTime? startDate, DateTime? endDate, out List<TellerTransaction> tellerTransactions, out decimal totalTransactionValue, out int totalTransactionVolume)
+        public static bool GetTellerTransactions(int logId, string sourceId, string branch, DateTime? startDate, DateTime? endDate, out List<TellerTransaction> tellerTransactions, out decimal totalTransactionValue, out int totalTransactionVolume)
         {
             tellerTransactions = new List<TellerTransaction>();
 
@@ -34,7 +34,7 @@ namespace FAB_Merchant_Portal.Models
             {
                 using (FABMerchantPortalDBEntities db = new FABMerchantPortalDBEntities())
                 {
-                    tellerTransactions = db.TransactionLogs.Where(x => x.SourceID == sourceId).Select(x => new TellerTransaction { Id = x.Id, TransactionStatus = x.TransactionStatus, Amount = x.Amount, CorebankingReference = x.CoreBankingReference, EntryDate = x.EntryDate, ThirdPartyReferece = x.ThirdPartyReference, TransactionType = x.TransactionType }).ToList();
+                    tellerTransactions = db.TransactionLogs.Where(x => x.SourceID == sourceId && x.Branch.ToUpper().Trim().Equals(branch.ToUpper().Trim())).Select(x => new TellerTransaction { Id = x.Id, TransactionStatus = x.TransactionStatus, Amount = x.Amount, CorebankingReference = x.CoreBankingReference, EntryDate = x.EntryDate, ThirdPartyReferece = x.ThirdPartyReference, TransactionType = x.TransactionType }).ToList();
 
                     if (tellerTransactions != null)
                     {
@@ -103,7 +103,7 @@ namespace FAB_Merchant_Portal.Models
             return worked;
         }
 
-        public static bool GetTellerTransaction(int logId,int id,out DateTime? transactionDate, out string idenntifier,  out string thirdPartyReference,out string transactionType, out decimal amount,out string corebankingReference,out string branch)
+        public static bool GetTellerTransaction(int logId, int id, out DateTime? transactionDate, out string idenntifier, out string thirdPartyReference, out string transactionType, out decimal amount, out string corebankingReference, out string branch)
         {
             bool worked = false;
             thirdPartyReference = string.Empty;
@@ -112,7 +112,7 @@ namespace FAB_Merchant_Portal.Models
             corebankingReference = string.Empty;
             branch = string.Empty;
             idenntifier = string.Empty;
-            transactionDate =null;
+            transactionDate = null;
 
             try
             {
@@ -125,13 +125,13 @@ namespace FAB_Merchant_Portal.Models
                         transactionDate = transaction.EntryDate;
                         idenntifier = transaction.Identifier;
                         thirdPartyReference = transaction.ThirdPartyReference;
-                        amount = (decimal) transaction.Amount;
+                        amount = (decimal)transaction.Amount;
                         transactionType = transaction.TransactionType;
                         corebankingReference = transaction.CoreBankingReference;
                         branch = transaction.Branch;
                     }
                     worked = true;
-                   
+
 
                 }
             }
@@ -324,14 +324,18 @@ namespace FAB_Merchant_Portal.Models
             }
         }
 
-        public static bool VerifyGhanaGov(int logId, string invoice, out string PaidStatus, out string TotalAmount, out string Currency, out string Description, out string ExpiryDate, out string message)
+        public static bool VerifyGhanaGov(int logId, string invoice, string pointingAccountReference, out string PaidStatus, out string TotalAmount, out string Currency, out string Description, out string ExpiryDate,out decimal pointingReferenceAmount, out string pointingReferenceRemarks, out string message)
         {
             bool worked = false;
-            PaidStatus = "Paid";
-            TotalAmount = "100";
-            Currency = "GHS";
-            Description = "Passport";
-            ExpiryDate = "2020-04-30";
+            PaidStatus = string.Empty;
+            TotalAmount = string.Empty;
+            Currency = string.Empty;
+            Description = string.Empty;
+            ExpiryDate = string.Empty;
+         
+            pointingReferenceRemarks = string.Empty;
+            pointingReferenceAmount = 0;
+
             string apiURL = ConfigurationManager.AppSettings["apiURL"];
             string requestorId = ConfigurationManager.AppSettings["RequestorId"];
             string req = string.Empty;
@@ -359,7 +363,8 @@ namespace FAB_Merchant_Portal.Models
                             {
                                 RequestorId = requestorId,
                                 InvoiceNumber = invoice,
-                                InitiatorReference = logId
+                                InitiatorReference = logId,
+                                PointingAccountReference = pointingAccountReference
                             };
 
                             req = JsonConvert.SerializeObject(json);
@@ -384,7 +389,10 @@ namespace FAB_Merchant_Portal.Models
                                     Currency = invoiceSearchResponse.SearchInvoiceResponseObject.TotalAmountCurrency;
                                     Description = invoiceSearchResponse.SearchInvoiceResponseObject.InvoiceDescription;
                                     ExpiryDate = invoiceSearchResponse.SearchInvoiceResponseObject.ExpiryDate;
+                                    pointingReferenceAmount= invoiceSearchResponse.SearchInvoiceResponseObject.PointingAccountAmount;
+                                    pointingReferenceRemarks= invoiceSearchResponse.SearchInvoiceResponseObject.PointingAccountRemarks;
                                     message = invoiceSearchResponse.Message;
+                                    
                                     worked = true;
                                 }
                                 else
@@ -415,7 +423,7 @@ namespace FAB_Merchant_Portal.Models
         }
 
 
-        public static bool PayGhanaGov(int logId, string souceId, string invoice, decimal amount, string currency, string accountNuber, string bankBanchSortCode, string chequeNumber, string valueDate, out int transactionId, out string message)
+        public static bool PayGhanaGov(int logId, string souceId, string invoice, decimal amount, string currency, string accountNuber, string bankBanchSortCode, string chequeNumber, string valueDate, string accountNumberToDebit, out int transactionId, out string message)
         {
             bool worked = false;
             string apiURL = ConfigurationManager.AppSettings["apiURL"];
@@ -458,6 +466,7 @@ namespace FAB_Merchant_Portal.Models
                                 Amount = amount,
                                 Currency = currency,
                                 PaymentReference = logId.ToString(),
+                                AccountNumber = accountNumberToDebit,
                                 ChequeDetails = chequeDetails
                             };
 

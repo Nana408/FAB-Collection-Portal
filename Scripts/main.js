@@ -1715,10 +1715,17 @@ $(document).ready(function () {
         e.stopPropagation();
         $('#payment-verify').prop('disabled', true);
         var invoiceNumbber = $("#cc-invoice").val();
+        var creditReference = $("#cc-creditReference").val();
 
         if (invoiceNumbber == '') {
             swal("Validation Error", "Provide invoice Number", "error")
             $('#payment-verify').prop('disabled', false);
+            return false;
+        }
+
+        if (creditReference == '') {
+            swal("Validation Error", "Provide reference received after crediting Branch Pointing Account", "error");
+            $('#payment-pay').prop('disabled', false);
             return false;
         }
 
@@ -1741,6 +1748,10 @@ $(document).ready(function () {
                     $("#cc-currency").val(data.Currency);
                     $("#cc-description").val(data.Description);
                     $("#cc-expiryDate").val(data.ExpiryDate);
+                    $("#cc-creditRemark").val(data.PointingReferenceRemarks);
+                    $("#cc-amount").val(data.PointingReferenceAmount);
+                    $("#cc-invoice").prop("disabled", true);
+                    $("#cc-creditReference").prop("disabled", true);
                 } else {
                     swal(data.Message)
                     $('#payment-verify').prop('disabled', false);

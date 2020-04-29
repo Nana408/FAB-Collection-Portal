@@ -27,7 +27,12 @@
                                 <div class="form-group">
                                     <label for="cc-invoice" class="control-label mb-1">Invoice Number <span class="required-indicator"> * </span></label>
                                     <input id="cc-invoice" name="cc-payment" type="text" class="form-control" aria-required="true" aria-invalid="false">
-                                    <span class="help-block">Please enter your customer invoice</span>
+                                    <small class="help-block">Please enter your customer invoice</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cc-creditReference" class="control-label mb-1">Initial Credit Reference <span class="required-indicator"> * </span></label>
+                                    <input id="cc-creditReference" name="cc-payment" type="text" class="form-control" aria-required="true" aria-invalid="false">
+                                    <small class="help-block">Enter reference received after crediting pointint account</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="cc-status" class="control-label mb-1">Invoice Status</label>
@@ -50,20 +55,23 @@
                                     <input id="cc-expiryDate" name="cc-payment" type="text" class="form-control" disabled="" aria-required="true" aria-invalid="false">
                                 </div>
                                 <div class="form-group">
+                                    <label for="cc-amount" class="control-label mb-1">Amount Credited<span class="required-indicator"> * </span></label>
+                                    <input id="cc-amount" name="cc-payment" type="text" class="form-control" disabled="" aria-required="true" aria-invalid="false">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cc-creditRemark" class="control-label mb-1">Credit Remarks <span class="required-indicator"> * </span></label>
+                                    <input id="cc-creditRemark" name="cc-payment" type="text" class="form-control" disabled="" aria-required="true" aria-invalid="false">
+                                </div>
+
+                                <div class="form-group">
                                     <label for="cc-payOption" class="control-label mb-1">Payment Option <span class="required-indicator"> * </span></label>
                                     <div class="col-12 col-md-12">
-                                        <select name="select" id="select" class="form-control">            
+                                        <select name="select" id="select" class="form-control">
                                             <option value="1">Cash</option>
                                             <option value="2">Cheque</option>
                                         </select>
-                                    </div>  
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="cc-amount" class="control-label mb-1">Amount <span class="required-indicator"> * </span></label>
-                                    <input id="cc-amount" name="cc-payment" type="text" class="form-control" aria-required="true" aria-invalid="false">
-                                 
-                                </div>
-
                                 <div id="chequeDetails">
                                     <div class="form-group">
                                         <label for="cc-bankBanchSortCode" class="control-label mb-1">Bank Banch Sort Code <span class="required-indicator"> * </span></label>

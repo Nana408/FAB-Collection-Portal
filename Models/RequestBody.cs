@@ -39,7 +39,14 @@ namespace FAB_Merchant_Portal.Models
         public string issued { get; set; }
         public string expires { get; set; }
     }
+  
 
+          public class VerifyGhanaGovInvoiceRequest
+    {
+        public string InvoiceNumber { get; set; }
+        public string PointingAccountReference { get; set; }
+       
+    }
 
     public class VerifyGhanaGovInvoiceResponse
     {
@@ -63,6 +70,8 @@ namespace FAB_Merchant_Portal.Models
         public string InvoiceDescription { get; set; }
         public string ExpiryDate { get; set; }
         public string CreatedDate { get; set; }
+        public decimal PointingAccountAmount { get; set; }
+        public string PointingAccountRemarks { get; set; }
 
     }
 
@@ -101,6 +110,9 @@ namespace FAB_Merchant_Portal.Models
 
         [Required]
         public decimal Amount { get; set; }
+
+        [Required]
+        public string AccountNumber { get; set; }
 
         public ChequeDetails ChequeDetails { get; set; }
 

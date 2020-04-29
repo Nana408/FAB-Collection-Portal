@@ -1,16 +1,12 @@
-﻿using FAB_Merchant_Portal.Helpers;
-using FAB_Merchant_Portal.Models;
+﻿using FAB_Merchant_Portal.Models;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Web;
 using System.Web.Mvc;
 
 namespace FAB_Merchant_Portal.Controllers
 {
-  
+
     public class GhanaGovController : Controller
     {
         // GET: GhanaGov
@@ -20,26 +16,27 @@ namespace FAB_Merchant_Portal.Controllers
         }
 
         [HttpPost]
-        public ActionResult VerifyInvoice(string invoiceNumber)
+        public ActionResult VerifyInvoice(VerifyGhanaGovInvoiceRequest request)
         {
-            string sourceId = "12345";
-            string sourceName = "John Amoah";
+            string sourceId = Session["SourceID"].ToString();
+            string sourceName = Session["SourceName"].ToString();
+            string branch = Session["Branch"].ToString();
 
 
             var ipAddress = UserFunctions.GetIPAddress();
-            int logID = UserFunctions.InsertLog(ipAddress, "VerifyInvoice", sourceId, sourceName, invoiceNumber);
+            int logID = UserFunctions.InsertLog(ipAddress, "VerifyInvoice", sourceId, sourceName, request.InvoiceNumber);
 
             Thread.Sleep(3000);
 
-            if (UserFunctions.VerifyGhanaGov(logID, invoiceNumber, out string PaidStatus, out string TotalAmount, out string Currency, out string Description, out string ExpiryDate, out string message))
+            if (UserFunctions.VerifyGhanaGov(logID, request.InvoiceNumber, request.PointingAccountReference, out string PaidStatus, out string TotalAmount, out string Currency, out string Description, out string ExpiryDate, out decimal PointingReferenceAmount, out string PointingReferenceRemarks, out string message))
             {
-                var data = new { Status = StaticVariables.SUCCESSSTATUS, Message = message, InvoiceNumber = invoiceNumber, PaidStatus, TotalAmount, Currency, Description, ExpiryDate };
+                var data = new { Status = StaticVariables.SUCCESSSTATUS, Message = message, request.InvoiceNumber, request.PointingAccountReference, PaidStatus, TotalAmount, Currency, Description, ExpiryDate, PointingReferenceAmount, PointingReferenceRemarks };
                 UserFunctions.UpdateLogs(logID, StaticVariables.FAILSTATUS, JsonConvert.SerializeObject(data));
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
             else
             {
-                var data = new { Status = StaticVariables.FAILSTATUS, Message = message, InvoiceNumber = invoiceNumber, PaidStatus, TotalAmount, Currency, Description, ExpiryDate };
+                var data = new { Status = StaticVariables.FAILSTATUS, Message = message, request.InvoiceNumber, request.PointingAccountReference, PaidStatus, TotalAmount, Currency, Description, ExpiryDate, PointingReferenceAmount, PointingReferenceRemarks };
                 UserFunctions.UpdateLogs(logID, StaticVariables.FAILSTATUS, JsonConvert.SerializeObject(data));
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -49,11 +46,10 @@ namespace FAB_Merchant_Portal.Controllers
         [HttpPost]
         public ActionResult PayInvoice(PayGhanaGovInvoiceRequest request)
         {
-            string sourceId = "12345";
-
-            string sourceName = "John Amoah";
-
-
+            string sourceId = Session["SourceID"].ToString();
+            string sourceName = Session["SourceName"].ToString();
+            string branch = Session["Branch"].ToString();
+            string accountNumberToDebit = Session["Till"].ToString();
 
             var ipAddress = UserFunctions.GetIPAddress();
 
@@ -67,7 +63,6 @@ namespace FAB_Merchant_Portal.Controllers
 
                 return Json(error, JsonRequestBehavior.AllowGet);
             }
-
 
             string message;
 
@@ -87,16 +82,20 @@ namespace FAB_Merchant_Portal.Controllers
             }
 
 
-            if (UserFunctions.PayGhanaGov(logID, sourceId, request.InvoiceNumber, request.Amount, request.Currency, request.AccountNumber, request.BankBanchSortCode, request.ChequeNumber, request.ValueDate, out int transactionId, out message))
+            if (UserFunctions.PayGhanaGov(logID, sourceId, request.InvoiceNumber, request.Amount, request.Currency, request.AccountNumber, request.BankBanchSortCode, request.ChequeNumber, request.ValueDate, accountNumberToDebit, out int transactionId, out message))
             {
-                var data = new { Status = StaticVariables.SUCCESSSTATUS, Message = message, TransactionId = transactionId , RedirectURL = Url.Action("GenerateReceipt", "Home",new { id=transactionId}) };
+                var data = new { Status = StaticVariables.SUCCESSSTATUS, Message = message, TransactionId = transactionId, RedirectURL = Url.Action("GenerateReceipt", "Home", new { id = transactionId }) };
+
                 UserFunctions.UpdateLogs(logID, StaticVariables.FAILSTATUS, JsonConvert.SerializeObject(data));
+
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
             else
             {
                 var data = new { Status = StaticVariables.FAILSTATUS, Message = message, TransactionId = transactionId };
+
                 UserFunctions.UpdateLogs(logID, StaticVariables.FAILSTATUS, JsonConvert.SerializeObject(data));
+
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
         }

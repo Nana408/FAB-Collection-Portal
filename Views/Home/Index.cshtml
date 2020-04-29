@@ -4,6 +4,12 @@
     // Layout = null;
 }
 
+@{
+    decimal totalTransactionValue = ViewBag.TotalTransactionValue;
+
+    int totalTransactionVolume = ViewBag.TotalTransactionVolume;
+}
+
 <!-- BREADCRUMB-->
 <section class="au-breadcrumb m-t-75">
     <div class="section__content section__content--p30">
@@ -40,7 +46,7 @@
             <div class="row">
                 <div class="col-md-6 col-lg-6">
                     <div class="statistic__item">
-                        <h2 class="number">10,368</h2>
+                        <h2 class="number">@totalTransactionVolume</h2>
                         <span class="desc">Total Daily Transactions Volume</span>
                         <div class="icon">
                             <i class="zmdi zmdi-account-o"></i>
@@ -49,7 +55,7 @@
                 </div>
                 <div class="col-md-6 col-lg-6">
                     <div class="statistic__item">
-                        <h2 class="number">388,688</h2>
+                        <h2 class="number">@totalTransactionVolume</h2>
                         <span class="desc">Total Daily Transactions Value</span>
                         <div class="icon">
                             <i class="zmdi zmdi-shopping-cart"></i>

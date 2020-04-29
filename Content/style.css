@@ -101,6 +101,7 @@ body {
 .sub-main-w3ls {
     position: relative;
     padding: 2.5em;
+    margin-bottom: 109px;
 }
 
     .sub-main-w3ls input[type="text"], .sub-main-w3ls input[type="password"] {
@@ -132,7 +133,7 @@ body {
     }
 
 span.icon1, span.icon2 {
-    color: #f1a008;
+    color: #412B3A;
     font-size: 1em;
     position: absolute;
     display: block;
@@ -226,7 +227,7 @@ span.check-w3 {
     }
 
         .footer p a {
-            color: #e8a505;
+            color: #4b3967;
             text-decoration: none;
             font-family: 'Snippet', sans-serif;
         }

@@ -1,12 +1,8 @@
-﻿using FAB_Merchant_Portal.Helpers;
-using FAB_Merchant_Portal.Models;
+﻿using FAB_Merchant_Portal.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Net.Http;
-using System.Web;
 using System.Web.Mvc;
 
 namespace FAB_Merchant_Portal.Controllers
@@ -16,6 +12,28 @@ namespace FAB_Merchant_Portal.Controllers
     {
         public ActionResult Index()
         {
+            var ipAddress = UserFunctions.GetIPAddress();
+
+            string sourceId = Session["SourceID"].ToString();
+            string sourceName = Session["SourceName"].ToString();
+            string branch = Session["Branch"].ToString();
+
+            string requestBody = string.Empty;
+
+            DateTime? startDate = null;
+
+            DateTime? endDate = null;
+
+            int logID = UserFunctions.InsertLog(ipAddress, "Home/Index", sourceId, sourceName, requestBody);
+
+            UserFunctions.GetTellerTransactions(logID, sourceId, branch, startDate, endDate, out List<TellerTransaction> tellerTransactions, out decimal totalTransactionValue, out int totalTransactionVolume);
+
+            ViewBag.TotalTransactionValue = totalTransactionValue;
+
+            ViewBag.TotalTransactionVolume = totalTransactionVolume;
+
+            UserFunctions.UpdateLogs(logID, StaticVariables.FAILSTATUS, JsonConvert.SerializeObject(tellerTransactions));
+
             return View();
         }
 
@@ -39,9 +57,9 @@ namespace FAB_Merchant_Portal.Controllers
             List<TellerTransaction> tellerTransactionsDev = null;
 
             var ipAddress = UserFunctions.GetIPAddress();
-            string sourceId = "12345";
-
-            string sourceName = "John Amoah";
+            string sourceId = Session["SourceID"].ToString();
+            string sourceName = Session["SourceName"].ToString();
+            string branch = Session["Branch"].ToString();
 
             string requestBody = string.Empty;
 
@@ -51,7 +69,7 @@ namespace FAB_Merchant_Portal.Controllers
 
             int logID = UserFunctions.InsertLog(ipAddress, "GetTransactionsServerSide", sourceId, sourceName, requestBody);
 
-            if (UserFunctions.GetTellerTransactions(logID, sourceId, startDate, endDate, out List<TellerTransaction> tellerTransactions, out decimal totalTransactionValue, out int totalTransactionVolume))
+            if (UserFunctions.GetTellerTransactions(logID, sourceId, branch, startDate, endDate, out List<TellerTransaction> tellerTransactions, out decimal totalTransactionValue, out int totalTransactionVolume))
             {
                 UserFunctions.TellerTransaction(0, tellerTransactions, searchValue, sortColumnName, sortDirection, start, length, out totalCount, out totalrowsafterfiltering, out tellerTransactionsDev);
 
