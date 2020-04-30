@@ -67,7 +67,7 @@ namespace FAB_Merchant_Portal.Controllers
 
             DateTime? endDate = null;
 
-            int logID = UserFunctions.InsertLog(ipAddress, "GetTransactionsServerSide", sourceId, sourceName, requestBody);
+            int logID = UserFunctions.InsertLog(ipAddress, "GetTransactionsServerSide", sourceId, sourceName, sourceId);
 
             if (UserFunctions.GetTellerTransactions(logID, sourceId, branch, startDate, endDate, out List<TellerTransaction> tellerTransactions, out decimal totalTransactionValue, out int totalTransactionVolume))
             {
@@ -77,7 +77,7 @@ namespace FAB_Merchant_Portal.Controllers
 
                 var response = new { data = tellerTransactionsDev, draw = Request["draw"], recordsTotal = totalCount, recordsFiltered = totalrowsafterfiltering };
 
-                UserFunctions.UpdateLogs(logID, StaticVariables.FAILSTATUS, JsonConvert.SerializeObject(response));
+                UserFunctions.UpdateLogs(logID, StaticVariables.SUCCESSSTATUS, JsonConvert.SerializeObject(response));
 
                 ViewBag.TotalTransactionValue = totalTransactionValue;
 

@@ -1792,6 +1792,7 @@ $(document).ready(function () {
         var chequeNumber = $("#cc-chequeNumber").val();
         var valueDate = $("#cc-valueDate").val();
         var amount = $("#cc-amount").val();
+        var pointingAccountReference = $("#cc-creditReference").val();
 
 
         if (amount == '') {
@@ -1824,7 +1825,7 @@ $(document).ready(function () {
         $.ajax({
             url: "/GhanaGov/PayInvoice",
             type: "POST",
-            data: { InvoiceNumber: invoiceNumber, Currency: currency, Amount: amount, BankBanchSortCode: bankBanchSortCode, AccountNumber: accountNumber, ChequeNumber: chequeNumber, ValueDate: valueDate },
+            data: { PointingAccountReference: pointingAccountReference, InvoiceNumber: invoiceNumber, Currency: currency, Amount: amount, BankBanchSortCode: bankBanchSortCode, AccountNumber: accountNumber, ChequeNumber: chequeNumber, ValueDate: valueDate },
             cache: false,
             async: true,
             beforeSend: function () {

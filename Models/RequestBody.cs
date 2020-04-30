@@ -87,7 +87,7 @@ namespace FAB_Merchant_Portal.Models
 
         [Required]
         public decimal Amount { get; set; }
-
+        public string PointingAccountReference { get; set; }
         public string BankBanchSortCode { get; set; }
         public string AccountNumber { get; set; }
         public string ChequeNumber { get; set; }
@@ -113,6 +113,7 @@ namespace FAB_Merchant_Portal.Models
 
         [Required]
         public string AccountNumber { get; set; }
+        public string PointingAccountReference { get; set; }
 
         public ChequeDetails ChequeDetails { get; set; }
 

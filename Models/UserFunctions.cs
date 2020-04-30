@@ -324,7 +324,7 @@ namespace FAB_Merchant_Portal.Models
             }
         }
 
-        public static bool VerifyGhanaGov(int logId, string invoice, string pointingAccountReference, out string PaidStatus, out string TotalAmount, out string Currency, out string Description, out string ExpiryDate,out decimal pointingReferenceAmount, out string pointingReferenceRemarks, out string message)
+        public static bool VerifyGhanaGov(int logId, string invoice, string pointingAccountReference, out string PaidStatus, out string TotalAmount, out string Currency, out string Description, out string ExpiryDate, out decimal pointingReferenceAmount, out string pointingReferenceRemarks, out string message)
         {
             bool worked = false;
             PaidStatus = string.Empty;
@@ -332,7 +332,7 @@ namespace FAB_Merchant_Portal.Models
             Currency = string.Empty;
             Description = string.Empty;
             ExpiryDate = string.Empty;
-         
+
             pointingReferenceRemarks = string.Empty;
             pointingReferenceAmount = 0;
 
@@ -389,10 +389,10 @@ namespace FAB_Merchant_Portal.Models
                                     Currency = invoiceSearchResponse.SearchInvoiceResponseObject.TotalAmountCurrency;
                                     Description = invoiceSearchResponse.SearchInvoiceResponseObject.InvoiceDescription;
                                     ExpiryDate = invoiceSearchResponse.SearchInvoiceResponseObject.ExpiryDate;
-                                    pointingReferenceAmount= invoiceSearchResponse.SearchInvoiceResponseObject.PointingAccountAmount;
-                                    pointingReferenceRemarks= invoiceSearchResponse.SearchInvoiceResponseObject.PointingAccountRemarks;
+                                    pointingReferenceAmount = invoiceSearchResponse.SearchInvoiceResponseObject.PointingAccountAmount;
+                                    pointingReferenceRemarks = invoiceSearchResponse.SearchInvoiceResponseObject.PointingAccountRemarks;
                                     message = invoiceSearchResponse.Message;
-                                    
+
                                     worked = true;
                                 }
                                 else
@@ -423,7 +423,7 @@ namespace FAB_Merchant_Portal.Models
         }
 
 
-        public static bool PayGhanaGov(int logId, string souceId, string invoice, decimal amount, string currency, string accountNuber, string bankBanchSortCode, string chequeNumber, string valueDate, string accountNumberToDebit, out int transactionId, out string message)
+        public static bool PayGhanaGov(int logId, string souceId,string pointingAccountReference,  string invoice, decimal amount, string currency, string accountNuber, string bankBanchSortCode, string chequeNumber, string valueDate, string accountNumberToDebit, out int transactionId, out string message)
         {
             bool worked = false;
             string apiURL = ConfigurationManager.AppSettings["apiURL"];
@@ -467,6 +467,7 @@ namespace FAB_Merchant_Portal.Models
                                 Currency = currency,
                                 PaymentReference = logId.ToString(),
                                 AccountNumber = accountNumberToDebit,
+                                PointingAccountReference = pointingAccountReference,
                                 ChequeDetails = chequeDetails
                             };
 
