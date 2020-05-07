@@ -1729,9 +1729,10 @@ $(document).ready(function () {
             $('#payment-pay').prop('disabled', false);
             return false;
         }
+        var ghanaGovVerifyURL = FABMerchantPortal.Urls.GhanaGovVerify;
 
         $.ajax({
-            url: "/GhanaGov/VerifyInvoice",
+            url: ghanaGovVerifyURL,
             type: "POST",
             data: { invoiceNumber: invoiceNumbber },
             cache: false,
@@ -1822,9 +1823,11 @@ $(document).ready(function () {
             $('#payment-pay').prop('disabled', false);
             return false;
         }
+        var ghanaGovPayURL = FABMerchantPortal.Urls.GhanaGovPay;
 
         $.ajax({
-            url: "/GhanaGov/PayInvoice",
+          
+            url: ghanaGovPayURL,
             type: "POST",
             data: { PointingAccountReference: pointingAccountReference, InvoiceNumber: invoiceNumber, Currency: currency, Amount: amount, BankBanchSortCode: bankBanchSortCode, AccountNumber: accountNumber, ChequeNumber: chequeNumber, ValueDate: valueDate },
             cache: false,

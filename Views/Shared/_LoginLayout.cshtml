@@ -7,8 +7,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>FAB:: Merchant Portal</title>
-    <link rel="icon" type="image/png" href="~/Content/Images/FAB.png">
+    <title>FAB || Merchant Portal</title>
+    <link rel="icon" type="image/png" href="@Url.Content("~/Content/Images/FAB.png")">
     <!-- Meta tag Keywords -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -19,19 +19,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!-- Meta tag Keywords -->
     <!-- css files -->
 
-    <link rel="stylesheet" href="~/Content/style.css" type="text/css" media="all" /> <!-- Style-CSS -->
-    <link rel="stylesheet" href="~/Content/font-awesome.css"> <!-- Font-Awesome-Icons-CSS -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/style.css")" type="text/css" media="all" /> <!-- Style-CSS -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/font-awesome.css")"> <!-- Font-Awesome-Icons-CSS -->
     <!-- //css files -->
     <!-- web-fonts -->
     @* <link href="//fonts.googleapis.com/css?family=Snippet" rel="stylesheet"><!--online fonts-->*@
-    <link href="~/Content/Snippet.css" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Snippet.css")" rel="stylesheet" />
     <!-- //web-fonts -->
 </head>
 @*<video controls="controls">
-    <source src="~/Content/Videos/keyboard.mp4" type="video/mp4" />
+    <source src="@Url.Content("~/Content/Videos/keyboard.mp4" type="video/mp4" />
 </video>*@
 <body>
-    <div data-vide-bg="/Content/Videos/keyboard">
+    <div data-vide-bg="@Url.Content("~/Content/Videos/keyboard")">
         <div class="main-container">
             <!--header-->
             <div class="header-w3l">
@@ -56,8 +56,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         </div>
     </div>
     <!-- js -->
-    <script type="text/javascript" src="~/Scripts/jquery-2.1.4.min.js"></script><!--common-js-->
-    <script src="~/Scripts/jquery.vide.min.js"></script><!--video-js-->
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-2.1.4.min.js")"></script><!--common-js-->
+    <script src="@Url.Content("~/Scripts/jquery.vide.min.js")"></script><!--video-js-->
     <!-- //js -->
 
     @RenderSection("scripts", required: false)
