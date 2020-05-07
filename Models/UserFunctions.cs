@@ -615,14 +615,14 @@ namespace FAB_Merchant_Portal.Models
             }
         }
 
-        public static bool CoreBankingPointingAccountReference(int logId, string referenceNo, out LoginDetails coreBankingCustomerDeailsResponse, out string message)
+        public static bool CoreBankingPointingAccountReference(int logId, string referenceNo, out PointingAccountObject coreBankingPoitingAccountrDetailsResponse, out string message)
         {
             bool worked = false;
 
             message = string.Empty;
             string reqeuest = string.Empty;
             string response = string.Empty;
-            coreBankingCustomerDeailsResponse = null;
+            coreBankingPoitingAccountrDetailsResponse = null;
             string merchantbase64 = ConfigurationManager.AppSettings["CoreBankingBaseURL"];
             string url = ConfigurationManager.AppSettings["CoreBankingAuthorizationKey"];
             string coreBankingChannelId = ConfigurationManager.AppSettings["coreBankingChannelId"];
@@ -647,9 +647,9 @@ namespace FAB_Merchant_Portal.Models
                     string statusCod = res.StatusCode.ToString();
                     response = res.Content.ReadAsStringAsync().Result;
 
-                    coreBankingCustomerDeailsResponse = JsonConvert.DeserializeObject<LoginDetails>(res.Content.ReadAsStringAsync().Result);
+                    coreBankingPoitingAccountrDetailsResponse = JsonConvert.DeserializeObject<PointingAccountObject>(res.Content.ReadAsStringAsync().Result.Replace("MESSAGE", "POINTINACCOUNTGMESSAGE"));
 
-                    if (statusCod == "OK" && coreBankingCustomerDeailsResponse != null)
+                    if (statusCod == "OK" && coreBankingPoitingAccountrDetailsResponse.STATUS ==StaticVariables.COREBANKINGSUCCESSSTATUS)
                     {
                         message = StaticVariables.SUCCESSSTATUSMASSAGE;
                         worked = true;

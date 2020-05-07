@@ -235,4 +235,22 @@ namespace FAB_Merchant_Portal.Models
         public string RecordId { get; set; }
     }
 
+
+
+    public class PointingAccountObject
+    {
+        public string STATUS { get; set; }
+        public POINTINACCOUNTGMESSAGE MESSAGE { get; set; }
+    }
+
+    public class POINTINACCOUNTGMESSAGE
+    {
+        public DateTime PostDate { get; set; }
+        public DateTime ValueDate { get; set; }
+        public string Description { get; set; }
+        public string Currency { get; set; }
+        public float TrxnAmount { get; set; }
+        public string CrDr { get; set; }
+    }
+
 }
