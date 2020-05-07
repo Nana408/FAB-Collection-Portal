@@ -15,6 +15,7 @@ using System.Linq.Dynamic;
 using System.Net.Http.Headers;
 using System.Net;
 using System.Text;
+using System.Runtime.CompilerServices;
 
 namespace FAB_Merchant_Portal.Models
 {
@@ -199,8 +200,9 @@ namespace FAB_Merchant_Portal.Models
             return id;
         }
 
-        public static void WriteLog(dynamic logId, string request, string response, string serviceName, string mfunctionName)
+        public static void WriteLog(dynamic logId, string request, string response, string serviceName, string mfunctionName, [CallerMemberName] string callerName = "")
         {
+            mfunctionName = callerName;
             string logFilePath = "C:\\Logs\\" + serviceName + "\\";
             logFilePath = logFilePath + "Log-" + DateTime.Today.ToString("MM-dd-yyyy") + "." + "txt";
             try
@@ -371,7 +373,7 @@ namespace FAB_Merchant_Portal.Models
 
                             HttpContent content = new StringContent(JsonConvert.SerializeObject(json), Encoding.UTF8, "application/json");
 
-                            var res = client.PostAsync(new Uri(apiURL + "api/GhanaGov/RetieveInvoiceByInvoiceNumber"), content).Result;
+                            var res = client.PostAsync(new Uri(apiURL + "api/GhanaGov/RetrieveInvoiceByInvoiceNumber"), content).Result;
 
                             string statusCod = res.StatusCode.ToString();
 
@@ -423,7 +425,7 @@ namespace FAB_Merchant_Portal.Models
         }
 
 
-        public static bool PayGhanaGov(int logId, string souceId,string pointingAccountReference,  string invoice, decimal amount, string currency, string accountNuber, string bankBanchSortCode, string chequeNumber, string valueDate, string accountNumberToDebit, out int transactionId, out string message)
+        public static bool PayGhanaGov(int logId, string souceId, string pointingAccountReference, string invoice, decimal amount, string currency, string accountNuber, string bankBanchSortCode, string chequeNumber, string valueDate, string accountNumberToDebit, out int transactionId, out string message)
         {
             bool worked = false;
             string apiURL = ConfigurationManager.AppSettings["apiURL"];
@@ -611,6 +613,124 @@ namespace FAB_Merchant_Portal.Models
 
                 return output;
             }
+        }
+
+        public static bool CoreBankingPointingAccountReference(int logId, string referenceNo, out LoginDetails coreBankingCustomerDeailsResponse, out string message)
+        {
+            bool worked = false;
+
+            message = string.Empty;
+            string reqeuest = string.Empty;
+            string response = string.Empty;
+            coreBankingCustomerDeailsResponse = null;
+            string merchantbase64 = ConfigurationManager.AppSettings["CoreBankingBaseURL"];
+            string url = ConfigurationManager.AppSettings["CoreBankingAuthorizationKey"];
+            string coreBankingChannelId = ConfigurationManager.AppSettings["coreBankingChannelId"];
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", merchantbase64);
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var json = new
+                    {
+                        referenceNo
+                    };
+
+                    reqeuest = JsonConvert.SerializeObject(json);
+
+
+                    HttpContent content = new StringContent(JsonConvert.SerializeObject(json), Encoding.UTF8, "application/json");
+                    var res = client.GetAsync(new Uri(url + "Customer/GetTransactionDetail/" + coreBankingChannelId + "/" + referenceNo)).Result;
+                    string statusCod = res.StatusCode.ToString();
+                    response = res.Content.ReadAsStringAsync().Result;
+
+                    coreBankingCustomerDeailsResponse = JsonConvert.DeserializeObject<LoginDetails>(res.Content.ReadAsStringAsync().Result);
+
+                    if (statusCod == "OK" && coreBankingCustomerDeailsResponse != null)
+                    {
+                        message = StaticVariables.SUCCESSSTATUSMASSAGE;
+                        worked = true;
+                    }
+                    else
+                    {
+                        message = StaticVariables.FAILSTATUSMASSAGE;
+
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                message = StaticVariables.SERVERERRORMESSAGE;
+                response = ex.Message + "||" + ex.StackTrace;
+                Task.Factory.StartNew(() => WriteLog(logId.ToString(), reqeuest, ex.Message, StaticVariables.EXCEPTIONERROR, string.Format("{0}.{1}", MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name)));
+            }
+            Task.Factory.StartNew(() => WriteLog(logId.ToString(), reqeuest, response, StaticVariables.COREBANKING, string.Format("{0}.{1}", MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name)));
+
+            return worked;
+        }
+
+
+        public static bool Login(int logId, string userName, string password, out LoginObject loginDetails, out string message)
+        {
+            bool worked = false;
+            message = string.Empty;
+            string reqeuest = string.Empty;
+            string response = string.Empty;
+            loginDetails = null;
+            string merchantbase64 = ConfigurationManager.AppSettings["CoreBankingBaseURL"];
+            string url = ConfigurationManager.AppSettings["CoreBankingAuthorizationKey"];
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", merchantbase64);
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    LoginRequest json = new LoginRequest
+                    {
+                        Username = userName,
+                        Password = password
+                    };
+
+                    reqeuest = JsonConvert.SerializeObject(json);
+
+                    HttpContent content = new StringContent(JsonConvert.SerializeObject(json), Encoding.UTF8, "application/json");
+
+                    var res = client.PostAsync(new Uri(url + "User/Login"), content).Result;
+
+                    string statusCod = res.StatusCode.ToString();
+
+                    response = res.Content.ReadAsStringAsync().Result;
+
+                    loginDetails = JsonConvert.DeserializeObject<LoginObject>(res.Content.ReadAsStringAsync().Result);
+
+                    if (statusCod == "OK" && loginDetails.STATUS == StaticVariables.COREBANKINGSUCCESSSTATUS)
+                    {
+
+                        message = StaticVariables.SUCCESSSTATUSMASSAGE;
+                        worked = true;
+                    }
+                    else
+                    {
+                        message = StaticVariables.FAILSTATUSMASSAGE;
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                message = StaticVariables.SERVERERRORMESSAGE;
+                response = ex.Message + "||" + ex.StackTrace;
+                Task.Factory.StartNew(() => WriteLog(logId.ToString(), string.Empty, ex.Message, StaticVariables.EXCEPTIONERROR, string.Format("{0}.{1}", MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name)));
+            }
+            Task.Factory.StartNew(() => WriteLog(logId.ToString(), string.Empty, response, StaticVariables.COREBANKING, string.Format("{0}.{1}", MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name)));
+            return worked;
         }
     }
 }

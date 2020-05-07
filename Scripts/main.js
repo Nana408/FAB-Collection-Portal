@@ -1674,9 +1674,10 @@
 //Added Scripts
 
 $(document).ready(function () {
+    var urlToEditUser = FABMerchantPortal.Urls.GetTransactionsServerSide;
     $("#transactionTable").DataTable({
-        "ajax": {
-            "url": "/Home/GetTransactionsServerSide",
+        "ajax": {        
+            "url": urlToEditUser,
             "type": "POST",
             "datatype": "json"
         },

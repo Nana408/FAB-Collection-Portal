@@ -20,6 +20,12 @@ namespace FAB_Merchant_Portal.Models
 
         public static string SERVERERRORMASSAGE = "Unable to connect to remote host";
 
-        public static string EXCEPTIONERROR = "ErrorLog";
+        public static string EXCEPTIONERROR = "ERROR";
+
+        public static string COREBANKINGSUCCESSSTATUS = "SUCCESS";
+
+        public static string COREBANKING = "Core Banking";
+
+        public static string SERVERERRORMESSAGE = "Connection was lost";
     }
 }

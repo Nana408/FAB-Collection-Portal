@@ -19,51 +19,52 @@ namespace FAB_Merchant_Portal.Controllers
             var ipAddress = UserFunctions.GetIPAddress();
 
             int logID = UserFunctions.InsertLog(ipAddress, "Login", loginRequest.Username, loginRequest.Username, JsonConvert.SerializeObject(loginRequest.Username));
-            string item = "User Does not Exists";
-            item = "Success";
+
+            string message;
+
             if (!ModelState.IsValid)
             {
                 var errors = ModelState.Values.ElementAt(0);
 
                 var messList = errors.Errors.ElementAt(0);
 
-                item = messList.ErrorMessage;
+                message = messList.ErrorMessage;
 
-                UserFunctions.UpdateLogs(logID, StaticVariables.FAILSTATUS, item);
-
+                UserFunctions.UpdateLogs(logID, StaticVariables.FAILSTATUS, message);
 
                 return View();
             }
 
 
-            if (item == "Success")
+            if (UserFunctions.Login(logID, loginRequest.Username, loginRequest.Password, out LoginObject loginDetails, out message))
             {
-                Session["Branch"] = "Head Office";
-                Session["SourceName"] = "John Amoah";
-                Session["SourceID"] = "12345";
-                Session["Till"] = "12345123332";
+                Session["Branch"] = loginDetails.MESSAGE.UserData.UserBranch;
 
-                UserFunctions.UpdateLogs(logID, StaticVariables.SUCCESSSTATUS, item);
+                Session["SourceName"] = string.Format("{0} {1}" ,loginDetails.MESSAGE.UserData.FirstName ,loginDetails.MESSAGE.UserData.LastName);
+
+                Session["SourceID"] = loginDetails.MESSAGE.UserData.UserId;
+
+                Session["Till"] = loginDetails.MESSAGE.UserData.PointingAccount;
+
+                UserFunctions.UpdateLogs(logID, StaticVariables.SUCCESSSTATUS, message);
+
                 return RedirectToAction("Index", "Home");
-            }
-            else if (item == "User Does not Exists")
-            {
-                ViewBag.NotValidUser = item;
-
             }
             else
             {
-                ViewBag.Failedcount = item;
-            }
-            UserFunctions.UpdateLogs(logID, StaticVariables.FAILSTATUS, item);
+                ViewBag.NotValidUser = message;
 
-            return View();
+                UserFunctions.UpdateLogs(logID, StaticVariables.FAILSTATUS, message);
+
+                return View();
+            }
+
         }
 
         public ActionResult LogOff()
         {
-         
-            Session["Branch"] =null;
+
+            Session["Branch"] = null;
             Session["SourceName"] = null;
             Session["SourceID"] = null;
             Session["Till"] = null;
