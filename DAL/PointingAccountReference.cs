@@ -12,20 +12,13 @@ namespace FAB_Merchant_Portal.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class TransactionLog
+    public partial class PointingAccountReference
     {
         public int Id { get; set; }
-        public string Identifier { get; set; }
-        public string SourceID { get; set; }
-        public string Branch { get; set; }
-        public Nullable<decimal> Amount { get; set; }
-        public string TransactionType { get; set; }
-        public Nullable<System.DateTime> EntryDate { get; set; }
-        public string CoreBankingReference { get; set; }
-        public string ThirdPartyReference { get; set; }
-        public int LogId { get; set; }
-        public string ResponseJson { get; set; }
-        public string TransactionStatus { get; set; }
+        public string Reference { get; set; }
+        public string AccountNumber { get; set; }
+        public Nullable<bool> Status { get; set; }
+        public Nullable<int> LogId { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedDate { get; set; }

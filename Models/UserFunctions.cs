@@ -326,7 +326,7 @@ namespace FAB_Merchant_Portal.Models
             }
         }
 
-        public static bool VerifyGhanaGov(int logId, string invoice, string pointingAccountReference, out string PaidStatus, out string TotalAmount, out string Currency, out string Description, out string ExpiryDate, out decimal pointingReferenceAmount, out string pointingReferenceRemarks, out string message)
+        public static bool VerifyGhanaGov(int logId, string invoice,out string PaidStatus, out string TotalAmount, out string Currency, out string Description, out string ExpiryDate,  out string message)
         {
             bool worked = false;
             PaidStatus = string.Empty;
@@ -335,8 +335,7 @@ namespace FAB_Merchant_Portal.Models
             Description = string.Empty;
             ExpiryDate = string.Empty;
 
-            pointingReferenceRemarks = string.Empty;
-            pointingReferenceAmount = 0;
+         
 
             string apiURL = ConfigurationManager.AppSettings["apiURL"];
             string requestorId = ConfigurationManager.AppSettings["RequestorId"];
@@ -365,8 +364,8 @@ namespace FAB_Merchant_Portal.Models
                             {
                                 RequestorId = requestorId,
                                 InvoiceNumber = invoice,
-                                InitiatorReference = logId,
-                                PointingAccountReference = pointingAccountReference
+                                InitiatorReference = logId
+                              
                             };
 
                             req = JsonConvert.SerializeObject(json);
@@ -390,9 +389,7 @@ namespace FAB_Merchant_Portal.Models
                                     TotalAmount = invoiceSearchResponse.SearchInvoiceResponseObject.TotalAmount;
                                     Currency = invoiceSearchResponse.SearchInvoiceResponseObject.TotalAmountCurrency;
                                     Description = invoiceSearchResponse.SearchInvoiceResponseObject.InvoiceDescription;
-                                    ExpiryDate = invoiceSearchResponse.SearchInvoiceResponseObject.ExpiryDate;
-                                    pointingReferenceAmount = invoiceSearchResponse.SearchInvoiceResponseObject.PointingAccountAmount;
-                                    pointingReferenceRemarks = invoiceSearchResponse.SearchInvoiceResponseObject.PointingAccountRemarks;
+                                    ExpiryDate = invoiceSearchResponse.SearchInvoiceResponseObject.ExpiryDate;                                  
                                     message = invoiceSearchResponse.Message;
 
                                     worked = true;
@@ -615,65 +612,6 @@ namespace FAB_Merchant_Portal.Models
             }
         }
 
-        public static bool CoreBankingPointingAccountReference(int logId, string referenceNo, out PointingAccountObject coreBankingPoitingAccountrDetailsResponse, out string message)
-        {
-            bool worked = false;
-
-            message = string.Empty;
-            string reqeuest = string.Empty;
-            string response = string.Empty;
-            coreBankingPoitingAccountrDetailsResponse = null;
-            string  url = ConfigurationManager.AppSettings["CoreBankingBaseURL"];
-            string merchantbase64 = ConfigurationManager.AppSettings["CoreBankingAuthorizationKey"];
-            string coreBankingChannelId = ConfigurationManager.AppSettings["coreBankingChannelId"];
-            try
-            {
-                using (var client = new HttpClient())
-                {
-                    client.DefaultRequestHeaders.Clear();
-                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", merchantbase64);
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    var json = new
-                    {
-                        referenceNo
-                    };
-
-                    reqeuest = JsonConvert.SerializeObject(json);
-
-
-                    HttpContent content = new StringContent(JsonConvert.SerializeObject(json), Encoding.UTF8, "application/json");
-                    var res = client.GetAsync(new Uri(url + "Customer/GetTransactionDetail/" + coreBankingChannelId + "/" + referenceNo)).Result;
-                    string statusCod = res.StatusCode.ToString();
-                    response = res.Content.ReadAsStringAsync().Result;
-
-                    coreBankingPoitingAccountrDetailsResponse = JsonConvert.DeserializeObject<PointingAccountObject>(res.Content.ReadAsStringAsync().Result.Replace("MESSAGE", "POINTINACCOUNTGMESSAGE"));
-
-                    if (statusCod == "OK" && coreBankingPoitingAccountrDetailsResponse.STATUS ==StaticVariables.COREBANKINGSUCCESSSTATUS)
-                    {
-                        message = StaticVariables.SUCCESSSTATUSMASSAGE;
-                        worked = true;
-                    }
-                    else
-                    {
-                        message = StaticVariables.FAILSTATUSMASSAGE;
-
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                message = StaticVariables.SERVERERRORMESSAGE;
-                response = ex.Message + "||" + ex.StackTrace;
-                Task.Factory.StartNew(() => WriteLog(logId.ToString(), reqeuest, ex.Message, StaticVariables.EXCEPTIONERROR, string.Format("{0}.{1}", MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name)));
-            }
-            Task.Factory.StartNew(() => WriteLog(logId.ToString(), reqeuest, response, StaticVariables.COREBANKING, string.Format("{0}.{1}", MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name)));
-
-            return worked;
-        }
-
-
         public static bool Login(int logId, string userName, string password, out LoginObject loginDetails, out string message)
         {
             bool worked = false;
@@ -682,7 +620,7 @@ namespace FAB_Merchant_Portal.Models
             string response = string.Empty;
             loginDetails = null;
             string url = ConfigurationManager.AppSettings["CoreBankingBaseURL"];
-            string  merchantbase64 = ConfigurationManager.AppSettings["CoreBankingAuthorizationKey"];
+            string merchantbase64 = ConfigurationManager.AppSettings["CoreBankingAuthorizationKey"];
 
             try
             {
@@ -732,5 +670,143 @@ namespace FAB_Merchant_Portal.Models
             Task.Factory.StartNew(() => WriteLog(logId.ToString(), string.Empty, response, StaticVariables.COREBANKING, string.Format("{0}.{1}", MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name)));
             return worked;
         }
+
+
+        public static bool VerifyPointingAccountReference(int logId, string reference, string acountNumber, out decimal amount, out string remarks, out string message)
+        {
+            bool worked = false;
+            amount = 0;
+            remarks = string.Empty;
+            message = string.Empty;
+
+            try
+            {
+
+                using (FABMerchantPortalDBEntities db = new FABMerchantPortalDBEntities())
+                {
+                    var poinitngAccountUsed = db.PointingAccountReferences.FirstOrDefault(x => x.Reference.Equals(reference) && x.Status == true);
+
+                    if (poinitngAccountUsed != null)
+                    {
+                        message = StaticVariables.DUPLICATEPOINTINGACCOUNT;
+                        return worked;
+                    }
+
+                    if (CoreBankingPointingAccountReference(logId, reference, acountNumber, out PointingAccountObject coreBankingPoitingAccountrDetailsResponse, out message))
+                    {
+                        amount = coreBankingPoitingAccountrDetailsResponse.MESSAGE.TrxnAmount;
+                        remarks = coreBankingPoitingAccountrDetailsResponse.MESSAGE.Description;
+                        worked = true;
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Task.Factory.StartNew(() => WriteLog(logId.ToString(), reference, ex.Message, StaticVariables.EXCEPTIONERROR, string.Format("{0}.{1}", MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name)));
+
+            }
+
+            return worked;
+        }
+
+
+        public static bool CoreBankingPointingAccountReference(int logId, string referenceNo, string accountNumber, out PointingAccountObject coreBankingPoitingAccountrDetailsResponse, out string message)
+        {
+            bool worked = false;
+
+            message = StaticVariables.INVALIDPOINTINGACCOUNT;
+            string reqeuest = string.Empty;
+            string response = string.Empty;
+            coreBankingPoitingAccountrDetailsResponse = null;
+            string url = ConfigurationManager.AppSettings["CoreBankingBaseURL"];
+            string merchantbase64 = ConfigurationManager.AppSettings["CoreBankingAuthorizationKey"];
+            string coreBankingChannelId = ConfigurationManager.AppSettings["coreBankingChannelId"];
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", merchantbase64);
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var json = new
+                    {
+                        referenceNo
+                    };
+
+                    reqeuest = JsonConvert.SerializeObject(json);
+
+
+                    HttpContent content = new StringContent(JsonConvert.SerializeObject(json), Encoding.UTF8, "application/json");
+
+
+                    var res = client.GetAsync(new Uri(url + "Transaction/GetTransactionDetail/" + coreBankingChannelId + "/" + accountNumber + "/" + referenceNo)).Result;
+
+                    string statusCod = res.StatusCode.ToString();
+
+                    response = res.Content.ReadAsStringAsync().Result;
+
+                    coreBankingPoitingAccountrDetailsResponse = JsonConvert.DeserializeObject<PointingAccountObject>(res.Content.ReadAsStringAsync().Result.Replace("MESSAGE", "POINTINACCOUNTGMESSAGE"));
+
+                    if (statusCod == "OK" && coreBankingPoitingAccountrDetailsResponse.STATUS == StaticVariables.COREBANKINGSUCCESSSTATUS)
+                    {
+                        message = StaticVariables.SUCCESSSTATUSMASSAGE;
+
+                        worked = true;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                message = StaticVariables.SERVERERRORMESSAGE;
+                response = ex.Message + "||" + ex.StackTrace;
+                Task.Factory.StartNew(() => WriteLog(logId.ToString(), reqeuest, ex.Message, StaticVariables.EXCEPTIONERROR, string.Format("{0}.{1}", MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name)));
+            }
+            Task.Factory.StartNew(() => WriteLog(logId.ToString(), reqeuest, response, StaticVariables.COREBANKING, string.Format("{0}.{1}", MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name)));
+
+            return worked;
+        }
+
+
+        public static void LogPointingAccountReference(int logId, string reference, string accountNumber, string user, bool status)
+        {
+          
+            PointingAccountReference transfer = new PointingAccountReference();
+            try
+            {
+                using (FABMerchantPortalDBEntities db = new FABMerchantPortalDBEntities())
+                {
+                    transfer = new PointingAccountReference
+                    {
+                        LogId = logId,
+                        AccountNumber = accountNumber,
+                        CreatedBy = user,
+                        CreatedDate = DateTime.UtcNow,
+                       
+                        Reference = reference,
+                        Status=status
+                       
+                    };
+                    db.PointingAccountReferences.Add(transfer);
+                    db.SaveChanges();
+                  
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                Task.Factory.StartNew(() => WriteLog(logId.ToString(), JsonConvert.SerializeObject(transfer), ex.Message, StaticVariables.EXCEPTIONERROR, string.Format("{0}.{1}", MethodBase.GetCurrentMethod().DeclaringType.FullName, MethodBase.GetCurrentMethod().Name)));
+
+            }
+
+        }
+
+
+     
     }
 }

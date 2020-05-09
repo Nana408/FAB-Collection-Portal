@@ -18,6 +18,7 @@ namespace FAB_Merchant_Portal.DAL
         public UserLog()
         {
             this.TransactionLogs = new HashSet<TransactionLog>();
+            this.PointingAccountReferences = new HashSet<PointingAccountReference>();
         }
     
         public int Id { get; set; }
@@ -33,5 +34,7 @@ namespace FAB_Merchant_Portal.DAL
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TransactionLog> TransactionLogs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PointingAccountReference> PointingAccountReferences { get; set; }
     }
 }

@@ -7,6 +7,11 @@
       <End Role="UserLog" EntitySet="UserLogs" />
       <End Role="TransactionLog" EntitySet="TransactionLogs" />
     </AssociationSet>
+    <EntitySet Name="PointingAccountReferences" EntityType="FABMerchantPortalDBModel.PointingAccountReference" />
+    <AssociationSet Name="FK_PointingAccountReference_UserLog" Association="FABMerchantPortalDBModel.FK_PointingAccountReference_UserLog">
+      <End Role="UserLog" EntitySet="UserLogs" />
+      <End Role="PointingAccountReference" EntitySet="PointingAccountReferences" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="UserLog">
     <Key>
@@ -23,6 +28,7 @@
     <Property Name="RequestBody" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="ResponseBody" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="TransactionLogs" Relationship="FABMerchantPortalDBModel.FK_TransactionLog_UserLog" FromRole="UserLog" ToRole="TransactionLog" />
+    <NavigationProperty Name="PointingAccountReferences" Relationship="FABMerchantPortalDBModel.FK_PointingAccountReference_UserLog" FromRole="UserLog" ToRole="PointingAccountReference" />
   </EntityType>
   <EntityType Name="TransactionLog">
     <Key>
@@ -44,6 +50,7 @@
     <Property Name="CreatedBy" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
     <Property Name="ModifiedDate" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="UserLog" Relationship="FABMerchantPortalDBModel.FK_TransactionLog_UserLog" FromRole="TransactionLog" ToRole="UserLog" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
   </EntityType>
   <Association Name="FK_TransactionLog_UserLog">
     <End Type="FABMerchantPortalDBModel.UserLog" Role="UserLog" Multiplicity="1" />
@@ -53,6 +60,33 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="TransactionLog">
+        <PropertyRef Name="LogId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="PointingAccountReference">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Reference" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AccountNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Boolean" />
+    <Property Name="LogId" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedDate" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="ModifiedBy" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserLog" Relationship="FABMerchantPortalDBModel.FK_PointingAccountReference_UserLog" FromRole="PointingAccountReference" ToRole="UserLog" />
+  </EntityType>
+  <Association Name="FK_PointingAccountReference_UserLog">
+    <End Type="FABMerchantPortalDBModel.UserLog" Role="UserLog" Multiplicity="0..1" />
+    <End Type="FABMerchantPortalDBModel.PointingAccountReference" Role="PointingAccountReference" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserLog">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PointingAccountReference">
         <PropertyRef Name="LogId" />
       </Dependent>
     </ReferentialConstraint>

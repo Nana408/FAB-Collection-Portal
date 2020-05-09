@@ -150,6 +150,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FABMerchantPortal.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DAL\PointingAccountReference.cs">
+      <DependentUpon>FABMerchantPortal.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\TransactionLog.cs">
       <DependentUpon>FABMerchantPortal.tt</DependentUpon>
     </Compile>

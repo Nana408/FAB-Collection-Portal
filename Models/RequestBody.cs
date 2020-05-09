@@ -73,8 +73,7 @@ namespace FAB_Merchant_Portal.Models
         public string InvoiceDescription { get; set; }
         public string ExpiryDate { get; set; }
         public string CreatedDate { get; set; }
-        public decimal PointingAccountAmount { get; set; }
-        public string PointingAccountRemarks { get; set; }
+     
 
     }
 
@@ -249,7 +248,7 @@ namespace FAB_Merchant_Portal.Models
         public DateTime ValueDate { get; set; }
         public string Description { get; set; }
         public string Currency { get; set; }
-        public float TrxnAmount { get; set; }
+        public decimal TrxnAmount { get; set; }
         public string CrDr { get; set; }
     }
 

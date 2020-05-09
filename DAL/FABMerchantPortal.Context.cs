@@ -27,5 +27,6 @@ namespace FAB_Merchant_Portal.DAL
     
         public virtual DbSet<UserLog> UserLogs { get; set; }
         public virtual DbSet<TransactionLog> TransactionLogs { get; set; }
+        public virtual DbSet<PointingAccountReference> PointingAccountReferences { get; set; }
     }
 }

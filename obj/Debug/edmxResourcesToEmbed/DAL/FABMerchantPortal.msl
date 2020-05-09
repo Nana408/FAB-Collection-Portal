@@ -20,6 +20,7 @@
     <EntitySetMapping Name="TransactionLogs">
       <EntityTypeMapping TypeName="FABMerchantPortalDBModel.TransactionLog">
         <MappingFragment StoreEntitySet="TransactionLog">
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
           <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
           <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
@@ -34,6 +35,21 @@
           <ScalarProperty Name="Branch" ColumnName="Branch" />
           <ScalarProperty Name="SourceID" ColumnName="SourceID" />
           <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PointingAccountReferences">
+      <EntityTypeMapping TypeName="FABMerchantPortalDBModel.PointingAccountReference">
+        <MappingFragment StoreEntitySet="PointingAccountReference">
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="LogId" ColumnName="LogId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+          <ScalarProperty Name="Reference" ColumnName="Reference" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

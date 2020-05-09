@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace FAB_Merchant_Portal.Controllers
@@ -21,14 +22,46 @@ namespace FAB_Merchant_Portal.Controllers
             string sourceId = Session["SourceID"].ToString();
             string sourceName = Session["SourceName"].ToString();
             string branch = Session["Branch"].ToString();
-
+            string accountNumberToDebit = Session["Till"].ToString();
 
             var ipAddress = UserFunctions.GetIPAddress();
             int logID = UserFunctions.InsertLog(ipAddress, "VerifyInvoice", sourceId, sourceName, request.InvoiceNumber);
 
-            Thread.Sleep(3000);
 
-            if (UserFunctions.VerifyGhanaGov(logID, request.InvoiceNumber, request.PointingAccountReference, out string PaidStatus, out string TotalAmount, out string Currency, out string Description, out string ExpiryDate, out decimal PointingReferenceAmount, out string PointingReferenceRemarks, out string message))
+            if (request == null)
+            {
+                UserFunctions.UpdateLogs(logID, StaticVariables.FAILSTATUS, StaticVariables.FAILSTATUSMASSAGE);
+
+                var error = new { Status = StaticVariables.FAILSTATUS, Message = StaticVariables.FAILSTATUSMASSAGE };
+
+                return Json(error, JsonRequestBehavior.AllowGet);
+            }
+
+            string message;
+
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.ElementAt(0);
+
+                var messList = errors.Errors.ElementAt(0);
+
+                message = messList.ErrorMessage;
+
+                UserFunctions.UpdateLogs(logID, StaticVariables.FAILSTATUS, message);
+
+                var error = new { Status = StaticVariables.FAILSTATUS, Message = message };
+
+                return Json(error, JsonRequestBehavior.AllowGet);
+            }
+
+            if (!UserFunctions.VerifyPointingAccountReference(logID, request.PointingAccountReference, accountNumberToDebit, out decimal PointingReferenceAmount, out string PointingReferenceRemarks, out message) && string.IsNullOrEmpty(request.PointingAccountReference))
+            {
+                UserFunctions.UpdateLogs(logID, StaticVariables.FAILSTATUS, message);
+                var error = new { Status = StaticVariables.FAILSTATUS, Message = message };
+                return Json(error, JsonRequestBehavior.AllowGet);
+            }
+
+            if (UserFunctions.VerifyGhanaGov(logID, request.InvoiceNumber, out string PaidStatus, out string TotalAmount, out string Currency, out string Description, out string ExpiryDate, out message))
             {
                 var data = new { Status = StaticVariables.SUCCESSSTATUS, Message = message, request.InvoiceNumber, request.PointingAccountReference, PaidStatus, TotalAmount, Currency, Description, ExpiryDate, PointingReferenceAmount, PointingReferenceRemarks };
                 UserFunctions.UpdateLogs(logID, StaticVariables.FAILSTATUS, JsonConvert.SerializeObject(data));
@@ -82,11 +115,13 @@ namespace FAB_Merchant_Portal.Controllers
             }
 
 
-            if (UserFunctions.PayGhanaGov(logID, sourceId,request.PointingAccountReference, request.InvoiceNumber, request.Amount, request.Currency, request.AccountNumber, request.BankBanchSortCode, request.ChequeNumber, request.ValueDate, accountNumberToDebit, out int transactionId, out message))
+            if (UserFunctions.PayGhanaGov(logID, sourceId, request.PointingAccountReference, request.InvoiceNumber, request.Amount, request.Currency, request.AccountNumber, request.BankBanchSortCode, request.ChequeNumber, request.ValueDate, accountNumberToDebit, out int transactionId, out message))
             {
                 var data = new { Status = StaticVariables.SUCCESSSTATUS, Message = message, TransactionId = transactionId, RedirectURL = Url.Action("GenerateReceipt", "Home", new { id = transactionId }) };
 
                 UserFunctions.UpdateLogs(logID, StaticVariables.FAILSTATUS, JsonConvert.SerializeObject(data));
+
+                Task.Factory.StartNew(() => UserFunctions.LogPointingAccountReference(logID, request.PointingAccountReference, accountNumberToDebit, sourceName, true));
 
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
@@ -95,6 +130,9 @@ namespace FAB_Merchant_Portal.Controllers
                 var data = new { Status = StaticVariables.FAILSTATUS, Message = message, TransactionId = transactionId };
 
                 UserFunctions.UpdateLogs(logID, StaticVariables.FAILSTATUS, JsonConvert.SerializeObject(data));
+
+                Task.Factory.StartNew(() => UserFunctions.LogPointingAccountReference(logID, request.PointingAccountReference, accountNumberToDebit, sourceName, false));
+
 
                 return Json(data, JsonRequestBehavior.AllowGet);
             }

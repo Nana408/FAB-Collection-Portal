@@ -8,6 +8,8 @@
         <EntityTypeShape EntityType="FABMerchantPortalDBModel.UserLog" Width="1.5" PointX="0.75" PointY="1.25" />
         <EntityTypeShape EntityType="FABMerchantPortalDBModel.TransactionLog" Width="1.5" PointX="3" PointY="0.75" />
         <AssociationConnector Association="FABMerchantPortalDBModel.FK_TransactionLog_UserLog" />
+        <EntityTypeShape EntityType="FABMerchantPortalDBModel.PointingAccountReference" Width="1.5" PointX="3" PointY="6.5" />
+        <AssociationConnector Association="FABMerchantPortalDBModel.FK_PointingAccountReference_UserLog" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

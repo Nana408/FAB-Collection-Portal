@@ -1,5 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="FABMerchantPortalDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="PointingAccountReference">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Reference" Type="nvarchar" MaxLength="50" />
+    <Property Name="AccountNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="bit" />
+    <Property Name="LogId" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="256" />
+    <Property Name="ModifiedDate" Type="nvarchar" MaxLength="256" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="256" />
+  </EntityType>
   <EntityType Name="TransactionLog">
     <Key>
       <PropertyRef Name="Id" />
@@ -19,6 +33,7 @@
     <Property Name="CreatedDate" Type="datetime" />
     <Property Name="CreatedBy" Type="nvarchar" MaxLength="256" />
     <Property Name="ModifiedDate" Type="nvarchar" MaxLength="256" />
+    <Property Name="ModifiedBy" Type="nvarchar" MaxLength="256" />
   </EntityType>
   <EntityType Name="UserLog">
     <Key>
@@ -35,6 +50,18 @@
     <Property Name="RequestBody" Type="nvarchar(max)" />
     <Property Name="ResponseBody" Type="nvarchar(max)" />
   </EntityType>
+  <Association Name="FK_PointingAccountReference_UserLog">
+    <End Role="UserLog" Type="Self.UserLog" Multiplicity="0..1" />
+    <End Role="PointingAccountReference" Type="Self.PointingAccountReference" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserLog">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PointingAccountReference">
+        <PropertyRef Name="LogId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_TransactionLog_UserLog">
     <End Role="UserLog" Type="Self.UserLog" Multiplicity="1" />
     <End Role="TransactionLog" Type="Self.TransactionLog" Multiplicity="*" />
@@ -48,8 +75,13 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="FABMerchantPortalDBModelStoreContainer">
+    <EntitySet Name="PointingAccountReference" EntityType="Self.PointingAccountReference" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TransactionLog" EntityType="Self.TransactionLog" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserLog" EntityType="Self.UserLog" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_PointingAccountReference_UserLog" Association="Self.FK_PointingAccountReference_UserLog">
+      <End Role="UserLog" EntitySet="UserLog" />
+      <End Role="PointingAccountReference" EntitySet="PointingAccountReference" />
+    </AssociationSet>
     <AssociationSet Name="FK_TransactionLog_UserLog" Association="Self.FK_TransactionLog_UserLog">
       <End Role="UserLog" EntitySet="UserLog" />
       <End Role="TransactionLog" EntitySet="TransactionLog" />

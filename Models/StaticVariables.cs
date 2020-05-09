@@ -27,5 +27,9 @@ namespace FAB_Merchant_Portal.Models
         public static string COREBANKING = "Core Banking";
 
         public static string SERVERERRORMESSAGE = "Connection was lost";
+
+        public static string INVALIDPOINTINGACCOUNT = "Invalid credit reference provided";
+
+              public static string DUPLICATEPOINTINGACCOUNT = "Pointing Account Reference Already Exists";
     }
 }
