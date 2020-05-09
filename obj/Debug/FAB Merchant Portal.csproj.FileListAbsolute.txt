@@ -81,3 +81,87 @@ C:\inetpub\wwwroot\FAB Merchant Portal\obj\Debug\FAB Merchant Portal.csprojAssem
 C:\inetpub\wwwroot\FAB Merchant Portal\obj\Debug\FAB Merchant Portal.csproj.CopyComplete
 C:\inetpub\wwwroot\FAB Merchant Portal\obj\Debug\FAB Merchant Portal.dll
 C:\inetpub\wwwroot\FAB Merchant Portal\obj\Debug\FAB Merchant Portal.pdb
+C:\inetpub\wwwroot\FABMerchantPortal\bin\FAB Merchant Portal.dll.config
+C:\inetpub\wwwroot\FABMerchantPortal\bin\FAB Merchant Portal.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\FAB Merchant Portal.pdb
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\csc.exe
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\csc.exe.config
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\csc.rsp
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\csi.exe
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\csi.exe.config
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\csi.rsp
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\Microsoft.Managed.Core.targets
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\Microsoft.Win32.Primitives.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.AppContext.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.Collections.Immutable.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.Console.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.Diagnostics.DiagnosticSource.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.Globalization.Calendars.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.IO.Compression.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.IO.Compression.ZipFile.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.IO.FileSystem.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.Net.Http.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.Net.Sockets.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.Reflection.Metadata.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.Threading.Tasks.Extensions.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.ValueTuple.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.Xml.XmlDocument.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.Xml.XPath.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\vbc.exe
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\vbc.exe.config
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\vbc.rsp
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\VBCSCompiler.exe
+C:\inetpub\wwwroot\FABMerchantPortal\bin\roslyn\VBCSCompiler.exe.config
+C:\inetpub\wwwroot\FABMerchantPortal\bin\Antlr3.Runtime.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\EntityFramework.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\EntityFramework.SqlServer.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\Microsoft.Web.Infrastructure.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\Newtonsoft.Json.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\System.Linq.Dynamic.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\System.Web.Helpers.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\System.Web.Mvc.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\System.Web.Optimization.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\System.Web.Razor.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\System.Web.WebPages.Deployment.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\System.Web.WebPages.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\System.Web.WebPages.Razor.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\WebGrease.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\EntityFramework.xml
+C:\inetpub\wwwroot\FABMerchantPortal\bin\EntityFramework.SqlServer.xml
+C:\inetpub\wwwroot\FABMerchantPortal\bin\System.Web.Helpers.xml
+C:\inetpub\wwwroot\FABMerchantPortal\bin\System.Web.Mvc.xml
+C:\inetpub\wwwroot\FABMerchantPortal\bin\System.Web.Optimization.xml
+C:\inetpub\wwwroot\FABMerchantPortal\bin\System.Web.Razor.xml
+C:\inetpub\wwwroot\FABMerchantPortal\bin\System.Web.WebPages.xml
+C:\inetpub\wwwroot\FABMerchantPortal\bin\System.Web.WebPages.Deployment.xml
+C:\inetpub\wwwroot\FABMerchantPortal\bin\System.Web.WebPages.Razor.xml
+C:\inetpub\wwwroot\FABMerchantPortal\bin\Newtonsoft.Json.xml
+C:\inetpub\wwwroot\FABMerchantPortal\bin\Antlr3.Runtime.pdb
+C:\inetpub\wwwroot\FABMerchantPortal\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\inetpub\wwwroot\FABMerchantPortal\obj\Debug\FAB Merchant Portal.csprojAssemblyReference.cache
+C:\inetpub\wwwroot\FABMerchantPortal\obj\Debug\FAB Merchant Portal.csproj.CoreCompileInputs.cache
+C:\inetpub\wwwroot\FABMerchantPortal\obj\Debug\FAB Merchant Portal.csproj.CopyComplete
+C:\inetpub\wwwroot\FABMerchantPortal\obj\Debug\FAB Merchant Portal.dll
+C:\inetpub\wwwroot\FABMerchantPortal\obj\Debug\FAB Merchant Portal.pdb

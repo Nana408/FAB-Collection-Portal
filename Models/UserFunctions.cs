@@ -623,8 +623,8 @@ namespace FAB_Merchant_Portal.Models
             string reqeuest = string.Empty;
             string response = string.Empty;
             coreBankingPoitingAccountrDetailsResponse = null;
-            string merchantbase64 = ConfigurationManager.AppSettings["CoreBankingBaseURL"];
-            string url = ConfigurationManager.AppSettings["CoreBankingAuthorizationKey"];
+            string  url = ConfigurationManager.AppSettings["CoreBankingBaseURL"];
+            string merchantbase64 = ConfigurationManager.AppSettings["CoreBankingAuthorizationKey"];
             string coreBankingChannelId = ConfigurationManager.AppSettings["coreBankingChannelId"];
             try
             {
@@ -681,8 +681,8 @@ namespace FAB_Merchant_Portal.Models
             string reqeuest = string.Empty;
             string response = string.Empty;
             loginDetails = null;
-            string merchantbase64 = ConfigurationManager.AppSettings["CoreBankingBaseURL"];
-            string url = ConfigurationManager.AppSettings["CoreBankingAuthorizationKey"];
+            string url = ConfigurationManager.AppSettings["CoreBankingBaseURL"];
+            string  merchantbase64 = ConfigurationManager.AppSettings["CoreBankingAuthorizationKey"];
 
             try
             {
