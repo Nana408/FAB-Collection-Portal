@@ -15,6 +15,8 @@ namespace FAB_Merchant_Portal.Models
 
         public static string FAILSTATUSMASSAGE = "Request Failed";
 
+        public static string LOGINATTEMPTFAILED = "Login attempt failed, check credentials again";
+
 
         public static string SERVERERRORSTATUS = "2";
 

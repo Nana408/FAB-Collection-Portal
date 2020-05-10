@@ -656,7 +656,7 @@ namespace FAB_Merchant_Portal.Models
                     }
                     else
                     {
-                        message = StaticVariables.FAILSTATUSMASSAGE;
+                        message = StaticVariables.LOGINATTEMPTFAILED;
 
                     }
                 }
