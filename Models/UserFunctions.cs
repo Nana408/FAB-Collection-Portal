@@ -64,7 +64,7 @@ namespace FAB_Merchant_Portal.Models
             }
             return worked;
         }
-        public static bool InsertTellerTransactions(string responseJson, string transactionStatus, string thirdPartyReference, string transactionType, int logId, decimal amount, string sourceId, string corebankingReference, out int transactionId)
+        public static bool InsertTellerTransactions(string branch,string invoiceReference,string responseJson, string transactionStatus, string thirdPartyReference, string transactionType, int logId, decimal amount, string sourceId, string corebankingReference, out int transactionId)
         {
             bool worked = false;
             TransactionLog transactionLog = new TransactionLog();
@@ -75,6 +75,7 @@ namespace FAB_Merchant_Portal.Models
                 {
                     transactionLog = new TransactionLog()
                     {
+                        
                         Amount = amount,
                         CoreBankingReference = corebankingReference,
                         CreatedBy = sourceId,
@@ -86,7 +87,9 @@ namespace FAB_Merchant_Portal.Models
                         ThirdPartyReference = thirdPartyReference,
                         TransactionStatus = transactionStatus,
                         ResponseJson = responseJson,
-                        Identifier = logId.ToString()
+                        Identifier = invoiceReference,
+                        Branch= branch
+                        
                     };
 
                     db.TransactionLogs.Add(transactionLog);
@@ -383,21 +386,21 @@ namespace FAB_Merchant_Portal.Models
 
                                 VerifyGhanaGovInvoiceResponse invoiceSearchResponse = JsonConvert.DeserializeObject<VerifyGhanaGovInvoiceResponse>(res.Content.ReadAsStringAsync().Result);
 
-                                if (result.StatusCode != HttpStatusCode.Unauthorized && invoiceSearchResponse.Status == 1)
+                                if (statusCod == "OK" && invoiceSearchResponse.status == 1)
                                 {
-                                    PaidStatus = invoiceSearchResponse.SearchInvoiceResponseObject.InvoiceStatus;
-                                    TotalAmount = invoiceSearchResponse.SearchInvoiceResponseObject.TotalAmount;
-                                    Currency = invoiceSearchResponse.SearchInvoiceResponseObject.TotalAmountCurrency;
-                                    Description = invoiceSearchResponse.SearchInvoiceResponseObject.InvoiceDescription;
-                                    ExpiryDate = invoiceSearchResponse.SearchInvoiceResponseObject.ExpiryDate;                                  
-                                    message = invoiceSearchResponse.Message;
+                                    PaidStatus = invoiceSearchResponse.response.invoiceStatus;
+                                    TotalAmount = invoiceSearchResponse.response.totalAmount;
+                                    Currency = invoiceSearchResponse.response.totalAmountCurrency;
+                                    Description = invoiceSearchResponse.response.invoiceDescription;
+                                    ExpiryDate = invoiceSearchResponse.response.expiryDate;                                  
+                                    message = invoiceSearchResponse.message;
 
                                     worked = true;
                                 }
                                 else
                                 {
 
-                                    message = invoiceSearchResponse.Message;
+                                    message = invoiceSearchResponse.message;
                                 }
 
                             }
@@ -422,7 +425,7 @@ namespace FAB_Merchant_Portal.Models
         }
 
 
-        public static bool PayGhanaGov(int logId, string souceId, string pointingAccountReference, string invoice, decimal amount, string currency, string accountNuber, string bankBanchSortCode, string chequeNumber, string valueDate, string accountNumberToDebit, out int transactionId, out string message)
+        public static bool PayGhanaGov(int logId, string souceId, string invoice, decimal amount, string currency, string accountNuber, string bankBanchSortCode, string chequeNumber, string valueDate, string accountNumberToDebit,string remarks,string branch, out int transactionId, out string message)
         {
             bool worked = false;
             string apiURL = ConfigurationManager.AppSettings["apiURL"];
@@ -466,7 +469,7 @@ namespace FAB_Merchant_Portal.Models
                                 Currency = currency,
                                 PaymentReference = logId.ToString(),
                                 AccountNumber = accountNumberToDebit,
-                                PointingAccountReference = pointingAccountReference,
+                                Remarks = remarks,
                                 ChequeDetails = chequeDetails
                             };
 
@@ -492,7 +495,7 @@ namespace FAB_Merchant_Portal.Models
 
                                     string corebankingReference = string.Empty;
 
-                                    InsertTellerTransactions(apiResponse, StaticVariables.SUCCESSSTATUSMASSAGE, invoiceSearchResponse.PayInvoiceResponseObject.PaymentReference, ConfigurationManager.AppSettings["GhanaGovService"], logId, amount, souceId, corebankingReference, out transactionId);
+                                    InsertTellerTransactions(branch, invoice,apiResponse, StaticVariables.SUCCESSSTATUSMASSAGE, invoiceSearchResponse.PayInvoiceResponseObject.PaymentReference, ConfigurationManager.AppSettings["GhanaGovService"], logId, amount, souceId, corebankingReference, out transactionId);
 
                                     worked = true;
                                 }
@@ -749,10 +752,13 @@ namespace FAB_Merchant_Portal.Models
 
                     response = res.Content.ReadAsStringAsync().Result;
 
-                    coreBankingPoitingAccountrDetailsResponse = JsonConvert.DeserializeObject<PointingAccountObject>(res.Content.ReadAsStringAsync().Result.Replace("MESSAGE", "POINTINACCOUNTGMESSAGE"));
+                    //string updatedResponse = response.Replace("MESSAGE", "POINTINACCOUNTGMESSAGE");
+
+                    coreBankingPoitingAccountrDetailsResponse = JsonConvert.DeserializeObject<PointingAccountObject>(response);
 
                     if (statusCod == "OK" && coreBankingPoitingAccountrDetailsResponse.STATUS == StaticVariables.COREBANKINGSUCCESSSTATUS)
                     {
+
                         message = StaticVariables.SUCCESSSTATUSMASSAGE;
 
                         worked = true;

@@ -1676,7 +1676,7 @@
 $(document).ready(function () {
     var urlToEditUser = FABMerchantPortal.Urls.GetTransactionsServerSide;
     $("#transactionTable").DataTable({
-        "ajax": {        
+        "ajax": {
             "url": urlToEditUser,
             "type": "POST",
             "datatype": "json"
@@ -1734,7 +1734,7 @@ $(document).ready(function () {
         $.ajax({
             url: ghanaGovVerifyURL,
             type: "POST",
-            data: { invoiceNumber: invoiceNumbber },
+            data: { invoiceNumber: invoiceNumbber, PointingAccountReference: creditReference },
             cache: false,
             async: true,
             beforeSend: function () {
@@ -1754,8 +1754,11 @@ $(document).ready(function () {
                     $("#cc-amount").val(data.PointingReferenceAmount);
                     $("#cc-invoice").prop("disabled", true);
                     $("#cc-creditReference").prop("disabled", true);
+                    $('#payment-pay').prop('disabled', false);
                 } else {
-                    swal(data.Message)
+
+
+                    swal(data.Message, "Please try again", "error");
                     $('#payment-verify').prop('disabled', false);
                 }
 
@@ -1795,7 +1798,7 @@ $(document).ready(function () {
         var valueDate = $("#cc-valueDate").val();
         var amount = $("#cc-amount").val();
         var pointingAccountReference = $("#cc-creditReference").val();
-
+        var remarks = $("#cc-creditRemark").val();
 
         if (amount == '') {
             swal("Validation Error", "Provide amount to pay", "error");
@@ -1826,10 +1829,10 @@ $(document).ready(function () {
         var ghanaGovPayURL = FABMerchantPortal.Urls.GhanaGovPay;
 
         $.ajax({
-          
+
             url: ghanaGovPayURL,
             type: "POST",
-            data: { PointingAccountReference: pointingAccountReference, InvoiceNumber: invoiceNumber, Currency: currency, Amount: amount, BankBanchSortCode: bankBanchSortCode, AccountNumber: accountNumber, ChequeNumber: chequeNumber, ValueDate: valueDate },
+            data: { Remarks: remarks, PointingAccountReference: pointingAccountReference, InvoiceNumber: invoiceNumber, Currency: currency, Amount: amount, BankBanchSortCode: bankBanchSortCode, AccountNumber: accountNumber, ChequeNumber: chequeNumber, ValueDate: valueDate },
             cache: false,
             async: true,
             beforeSend: function () {

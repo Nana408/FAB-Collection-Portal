@@ -142,5 +142,46 @@ namespace FAB_Merchant_Portal.Controllers
 
             return View();
         }
+
+
+
+        public ActionResult GenerateReceipt2(int id)
+        {
+            string sourceId = Session["SourceID"].ToString();
+
+            string sourceName = Session["SourceName"].ToString();
+
+            var ipAddress = UserFunctions.GetIPAddress();
+
+            int logID = UserFunctions.InsertLog(ipAddress, "GenerateReceipt", sourceId, sourceName, JsonConvert.SerializeObject(id));
+
+
+            if (UserFunctions.GetTellerTransaction(logID, id, out DateTime? transactionDate, out string idenntifier, out string thirdPartyReference, out string transactionType, out decimal amount, out string corebankingReference, out string branch))
+            {
+                ViewBag.Idenntifier = idenntifier;
+                ViewBag.ThirdPartyReference = thirdPartyReference;
+                ViewBag.TransactionType = transactionType;
+                ViewBag.Amount = amount;
+                ViewBag.CorebankingReference = corebankingReference;
+                ViewBag.Branch = branch;
+                ViewBag.TransactionDate = transactionDate;
+
+                UserFunctions.UpdateLogs(logID, StaticVariables.SUCCESSSTATUS, StaticVariables.SUCCESSSTATUSMASSAGE);
+            }
+            else
+            {
+                ViewBag.ThirdPartyReference = thirdPartyReference;
+                ViewBag.TransactionType = transactionType;
+                ViewBag.Amount = amount;
+                ViewBag.CorebankingReference = corebankingReference;
+                ViewBag.Branch = branch;
+
+                UserFunctions.UpdateLogs(logID, StaticVariables.FAILSTATUS, StaticVariables.FAILSTATUSMASSAGE);
+
+            }
+
+
+            return View();
+        }
     }
 }

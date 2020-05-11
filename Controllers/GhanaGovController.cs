@@ -115,7 +115,7 @@ namespace FAB_Merchant_Portal.Controllers
             }
 
 
-            if (UserFunctions.PayGhanaGov(logID, sourceId, request.PointingAccountReference, request.InvoiceNumber, request.Amount, request.Currency, request.AccountNumber, request.BankBanchSortCode, request.ChequeNumber, request.ValueDate, accountNumberToDebit, out int transactionId, out message))
+            if (UserFunctions.PayGhanaGov(logID, sourceId,  request.InvoiceNumber, request.Amount, request.Currency, request.AccountNumber, request.BankBanchSortCode, request.ChequeNumber, request.ValueDate, accountNumberToDebit,request.Remarks,branch, out int transactionId, out message))
             {
                 var data = new { Status = StaticVariables.SUCCESSSTATUS, Message = message, TransactionId = transactionId, RedirectURL = Url.Action("GenerateReceipt", "Home", new { id = transactionId }) };
 

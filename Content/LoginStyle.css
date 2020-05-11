@@ -790,5 +790,10 @@ input[type="submit"] {
         margin: 0em 0.5em;
     }
 }
+
+.form-group.error {
+    color: red;
+    margin-top: 29px;
+}
 /*--//responsive--*/
 

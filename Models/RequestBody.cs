@@ -51,12 +51,34 @@ namespace FAB_Merchant_Portal.Models
 
     }
 
+
+
+
     public class VerifyGhanaGovInvoiceResponse
     {
-        public int Status { get; set; }
-        public string Message { get; set; }
-        public SearchInvoiceResponseObject SearchInvoiceResponseObject { get; set; }
+        public int status { get; set; }
+        public string message { get; set; }
+        public Response response { get; set; }
     }
+
+    public class Response
+    {
+        public string invoiceNumbber { get; set; }
+        public string invoiceStatus { get; set; }
+        public string totalAmount { get; set; }
+        public string totalAmountCurrency { get; set; }
+        public string invoiceDescription { get; set; }
+        public string expiryDate { get; set; }
+        public string createdDate { get; set; }
+    }
+
+
+    //public class VerifyGhanaGovInvoiceResponse
+    //{
+    //    public int Status { get; set; }
+    //    public string Message { get; set; }
+    //    public SearchInvoiceResponseObject SearchInvoiceResponseObject { get; set; }
+    //}
 
     public class GenericCenntralApiResponse
     {
@@ -64,18 +86,18 @@ namespace FAB_Merchant_Portal.Models
         public string Message { get; set; }
 
     }
-    public class SearchInvoiceResponseObject
-    {
-        public string InvoiceNumbber { get; set; }
-        public string InvoiceStatus { get; set; }
-        public string TotalAmount { get; set; }
-        public string TotalAmountCurrency { get; set; }
-        public string InvoiceDescription { get; set; }
-        public string ExpiryDate { get; set; }
-        public string CreatedDate { get; set; }
-     
+    //public class SearchInvoiceResponseObject
+    //{
+    //    public string InvoiceNumbber { get; set; }
+    //    public string InvoiceStatus { get; set; }
+    //    public string TotalAmount { get; set; }
+    //    public string TotalAmountCurrency { get; set; }
+    //    public string InvoiceDescription { get; set; }
+    //    public string ExpiryDate { get; set; }
+    //    public string CreatedDate { get; set; }
 
-    }
+
+    //}
 
     public class PayGhanaGovInvoiceRequest
     {
@@ -86,7 +108,6 @@ namespace FAB_Merchant_Portal.Models
 
         [Required]
         public string Currency { get; set; }
-
         [Required]
         public decimal Amount { get; set; }
         public string PointingAccountReference { get; set; }
@@ -94,6 +115,7 @@ namespace FAB_Merchant_Portal.Models
         public string AccountNumber { get; set; }
         public string ChequeNumber { get; set; }
         public string ValueDate { get; set; }
+        public string Remarks { get; set; }
     }
 
     public class GhanaGovPayInvoiceRequest
@@ -115,7 +137,7 @@ namespace FAB_Merchant_Portal.Models
 
         [Required]
         public string AccountNumber { get; set; }
-        public string PointingAccountReference { get; set; }
+        public string Remarks { get; set; }
 
         public ChequeDetails ChequeDetails { get; set; }
 
@@ -209,7 +231,7 @@ namespace FAB_Merchant_Portal.Models
         public string RecordStat { get; set; }
         public int ModNo { get; set; }
         public object AutoAuth { get; set; }
-        public object PointingAccount { get; set; } = "0051831301012";
+        public object PointingAccount { get; set; }
     }
 
     public class Usermenu

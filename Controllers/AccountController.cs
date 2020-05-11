@@ -44,7 +44,8 @@ namespace FAB_Merchant_Portal.Controllers
 
                 Session["SourceID"] = loginDetails.MESSAGE.UserData.UserId;
 
-                Session["Till"] = loginDetails.MESSAGE.UserData.PointingAccount;
+                // Session["Till"] = loginDetails.MESSAGE.UserData.PointingAccount;
+                Session["Till"] = "0051441101017";
 
                 UserFunctions.UpdateLogs(logID, StaticVariables.SUCCESSSTATUS, message);
 

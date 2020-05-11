@@ -10,6 +10,8 @@
     string branch = ViewBag.Branch;
     string identifier = ViewBag.Identifier;
     DateTime? transactionDate = ViewBag.TransactionDate;
+    string tellerId = ViewBag.TellerId;
+
 }
 
 <!DOCTYPE html>
@@ -75,10 +77,28 @@
                             <h2>Value</h2>
                         </td>
                     </tr>
+                    <tr class="service">
+                        <td class="tableitem">
+                            <p class="itemtext">Branch</p>
+                        </td>
+
+                        <td class="tableitem">
+                            <p class="itemtext">@branch</p>
+                        </td>
+                    </tr>
+                    <tr class="service">
+                        <td class="tableitem">
+                            <p class="itemtext">Teller Id</p>
+                        </td>
+
+                        <td class="tableitem">
+                            <p class="itemtext">@tellerId</p>
+                        </td>
+                    </tr>
 
                     <tr class="service">
                         <td class="tableitem">
-                            <p class="itemtext">Identifier</p>
+                            <p class="itemtext">Invoice Number</p>
                         </td>
 
                         <td class="tableitem">
