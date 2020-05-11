@@ -194,6 +194,7 @@
     <Content Include="Content\Images\arrow.png" />
     <Content Include="Content\Images\bg-title-01.jpg" />
     <Content Include="Content\Images\bg-title-02.jpg" />
+    <Content Include="Content\Images\bg3.jpg" />
     <Content Include="Content\Images\FAB.png" />
     <Content Include="Content\Images\icon\avatar-01.jpg" />
     <Content Include="Content\Images\icon\avatar-02.jpg" />
@@ -208,6 +209,10 @@
     <Content Include="Content\Images\icon\logo.png" />
     <Content Include="Content\Images\icon\Untitled-1.jpg" />
     <Content Include="Content\Images\Loader.gif" />
+    <Content Include="Content\Images\Logo1.png" />
+    <Content Include="Content\Images\mail.png" />
+    <Content Include="Content\Images\pass.png" />
+    <Content Include="Content\LoginStyle.css" />
     <Content Include="Content\Receipt.css" />
     <Content Include="Content\semantic.min.css" />
     <Content Include="Content\Snippet.css" />

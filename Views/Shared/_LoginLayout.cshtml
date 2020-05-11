@@ -1,65 +1,66 @@
 ﻿<!--
-Author: W3layouts
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
+    Author: W3layouts
+    Author URL: http://w3layouts.com
+    License: Creative Commons Attribution 3.0 Unported
+    License URL: http://creativecommons.org/licenses/by/3.0/
 -->
+@{
+    int year = DateTime.UtcNow.Year;
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>FAB || Merchant Portal</title>
-    <link rel="icon" type="image/png" href="@Url.Content("~/Content/Images/FAB.png")">
+    <title>FAB | Merchant Portal</title>
     <!-- Meta tag Keywords -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="Modern Login Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
+    <meta name="keywords" content="Smart Login Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
+    <link rel="icon" type="image/png" href=" @Url.Content("~/Content/Images/FAB.png")">
+
     <script type="application/x-javascript">
          addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
-        function hideURLbar(){ window.scrollTo(0,1); } </script>
+        function hideURLbar(){ window.scrollTo(0,1); }
+
+    </script>
     <!-- Meta tag Keywords -->
     <!-- css files -->
-
-    <link rel="stylesheet" href="@Url.Content("~/Content/style.css")" type="text/css" media="all" /> <!-- Style-CSS -->
-    <link rel="stylesheet" href="@Url.Content("~/Content/font-awesome.css")"> <!-- Font-Awesome-Icons-CSS -->
-    <!-- //css files -->
-    <!-- web-fonts -->
-    @* <link href="//fonts.googleapis.com/css?family=Snippet" rel="stylesheet"><!--online fonts-->*@
-    <link href="@Url.Content("~/Content/Snippet.css")" rel="stylesheet" />
-    <!-- //web-fonts -->
+    @* <link href="css/style.css" rel="stylesheet" type="text/css" media="all">*@
+    <link href="@Url.Content("~/Content/LoginStyle.css")" rel="stylesheet" type="text/css" media="all" />
+    @*<link href="@Url.Content("~/Content/style.css")" rel="stylesheet" />*@
+    <!-- online-fonts -->
+    @*<link href="//fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900iSlabo+27px&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">*@
+    <!--//online-fonts -->
 </head>
-@*<video controls="controls">
-    <source src="@Url.Content("~/Content/Videos/keyboard.mp4" type="video/mp4" />
-</video>*@
 <body>
-    <div data-vide-bg="@Url.Content("~/Content/Videos/keyboard")">
-        <div class="main-container">
-            <!--header-->
-            <div class="header-w3l">
-                <h1>FAB Merchant Login Form</h1>
-            </div>
-            <!--//header-->
-            <!--main-->
-            <div class="main-content-agile">
-                <div class="w3ls-pro">
-                    <h2>Login Now</h2>
-                </div>
-                <div class="sub-main-w3ls">
-                    @RenderBody()
-                </div>
-            </div>
-            <!--//main-->
-            <!--footer-->
-            <div class="footer">
-                <p>&copy; @DateTime.UtcNow.Year First Atlantic Bank Limited. All rights reserved | Design by <a href="https://www.firstatlanticbank.com.gh/">First Atlatic Bank</a></p>
-            </div>
-            <!--//footer-->
+    <!--header-->
+    <div class="agileheader">
+        <h1>First Atlantic Bank</h1>
+    </div>
+    <div class="agileheader2">
+        <h3>FAB Merchant Portal</h3>
+    </div>
+    <!--//header-->
+    <!--main-->
+    <div class="main-w3l">
+        <div class="w3layouts-main">
+            <h2>Login Now</h2>
+
+            @RenderBody()
+
+            @* <p>Don't Have an Account ?<a href="#">Register Now</a></p>*@
         </div>
     </div>
-    <!-- js -->
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-2.1.4.min.js")"></script><!--common-js-->
-    <script src="@Url.Content("~/Scripts/jquery.vide.min.js")"></script><!--video-js-->
-    <!-- //js -->
+    <!--//main-->
+    <!--footer-->
+    <div class="footer-w3l">
+        <p>&copy; @year First Atalantic Bank Ltd. All rights reserved | Design by <a href="https://www.firstatlanticbank.com.gh/">First Atalantic Bank</a></p>
+    </div>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
 
+    <!--//footer-->
     @RenderSection("scripts", required: false)
 </body>
+
+
+
 </html>

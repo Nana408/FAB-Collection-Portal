@@ -11,13 +11,13 @@
 {
     @Html.AntiForgeryToken() // this is for prevent CSRF attack
 
-    <input placeholder="Enter your Unsername" name="UserName" type="text" required="" autocomplete="off">
+    <input placeholder="Enter your user name" name="UserName" type="text" id="userName" required="" autocomplete="off">
     <span class="icon1"><i class="fa fa-envelope" aria-hidden="true"></i></span>
     <input placeholder="Enter Password" name="Password" type="password" required="">
     <span class="icon2"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
     <div class="checkbox-w3">
-        <span class="check-w3">@*<input type="checkbox" />Remember Me*@</span>
-          @*<a href="#">Forgot Password?</a>*@
+        <span class="check-w3"><input type="checkbox" />Remember Me</span>
+          <a href="#"></a>
         <div class="clear"></div>
     </div>
     <div class="form-group error">
@@ -33,17 +33,13 @@
             <label> @ViewBag.NotValidUser</label>
         }
     </div>
-    <div class="social-icons">
-        <ul>
-            <li>@*<a href="https://web.facebook.com/FirstAtlanticBank/" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>*@</li>
-            <li>@*<a href="https://twitter.com/FirstAtlanticGH" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>*@</li>
-            <li>@*<a href="https://firstatlanticbank.com.gh/" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a>*@</li>
-        </ul>
-    </div>
-    <input type="submit" value="">
+    
+    <input type="submit" value="Submit">
 }
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+
+
 
