@@ -8,7 +8,7 @@
     decimal amount = ViewBag.Amount;
     string corebankingReference = ViewBag.CorebankingReference;
     string branch = ViewBag.Branch;
-    string identifier = ViewBag.Identifier;
+    string identifier = ViewBag.Idenntifier;
     DateTime? transactionDate = ViewBag.TransactionDate;
     string tellerId = ViewBag.TellerId;
 
@@ -20,9 +20,10 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>FAB || Generate Receipt</title>
-    <link rel="icon" type="image/png" href="~/Content/Images/FAB.png">
-    <link href="~/Content/Receipt.css" rel="stylesheet" />
-    <script src="~/Scripts/Receipt.js"></script>
+    <link rel="icon" type="image/png" href="@Url.Content("~/Content/Images/FAB.png")">
+    <link href="@Url.Content("~/Content/Receipt.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Scripts/jquery-3.4.1.min.js")" )></script>
+    <script src="@Url.Content("~/Scripts/Receipt.js")"></script>
 </head>
 <body>
 
@@ -70,7 +71,7 @@
                 <table>
                     <tr class="tabletitle">
                         <td class="item">
-                            <h2>Key</h2>
+                            <h2>Item</h2>
                         </td>
 
                         <td class="Rate">
@@ -153,6 +154,15 @@
 
                         <td class="tableitem">
                             <p class="itemtext">GHS @amount</p>
+                        </td>
+                    </tr>
+                    <tr class="service">
+                        <td class="tableitem">
+                            <p class="itemtext">Signature/Stamp</p>
+                        </td>
+
+                        <td class="tableitem">
+                            <p class="itemtext">....................</p>
                         </td>
                     </tr>
 

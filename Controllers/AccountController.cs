@@ -35,16 +35,26 @@ namespace FAB_Merchant_Portal.Controllers
                 return View();
             }
 
+            bool worked = UserFunctions.Login(logID, loginRequest.Username, loginRequest.Password, out LoginObject loginDetails, out message);
 
-            if (UserFunctions.Login(logID, loginRequest.Username, loginRequest.Password, out LoginObject loginDetails, out message))
+          
+            if (worked)
             {
                 Session["Branch"] = loginDetails.MESSAGE.UserData.UserBranch;
 
-                Session["SourceName"] = string.Format("{0} {1}" ,loginDetails.MESSAGE.UserData.FirstName ,loginDetails.MESSAGE.UserData.LastName);
+                Session["SourceName"] = string.Format("{0} {1}", loginDetails.MESSAGE.UserData.FirstName, loginDetails.MESSAGE.UserData.LastName);
 
                 Session["SourceID"] = loginDetails.MESSAGE.UserData.UserId;
 
-                // Session["Till"] = loginDetails.MESSAGE.UserData.PointingAccount;
+                //  Session["Till"] = loginDetails.MESSAGE.UserData.PointingAccount;
+
+
+                //Session["Branch"] = "Head Office";
+
+                //Session["SourceName"] = "John Amoah";
+
+                //Session["SourceID"] = "1234";
+
                 Session["Till"] = "0051441101017";
 
                 UserFunctions.UpdateLogs(logID, StaticVariables.SUCCESSSTATUS, message);

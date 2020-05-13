@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="453ce3da19364788808bbb6ca7185489" Name="Diagram1">
-        <EntityTypeShape EntityType="FABMerchantPortalDBModel.UserLog" Width="1.5" PointX="0.75" PointY="1.25" />
+      <Diagram DiagramId="453ce3da19364788808bbb6ca7185489" Name="Diagram1" ZoomLevel="59">
         <EntityTypeShape EntityType="FABMerchantPortalDBModel.TransactionLog" Width="1.5" PointX="3" PointY="0.75" />
-        <AssociationConnector Association="FABMerchantPortalDBModel.FK_TransactionLog_UserLog" />
         <EntityTypeShape EntityType="FABMerchantPortalDBModel.PointingAccountReference" Width="1.5" PointX="3" PointY="6.5" />
+        <EntityTypeShape EntityType="FABMerchantPortalDBModel.UserLog" Width="1.5" PointX="0.75" PointY="3.375" />
         <AssociationConnector Association="FABMerchantPortalDBModel.FK_PointingAccountReference_UserLog" />
+        <AssociationConnector Association="FABMerchantPortalDBModel.FK_TransactionLog_UserLog" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

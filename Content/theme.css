@@ -14685,3 +14685,17 @@ section {
 .required-indicator{
     color:red
 }
+
+div#search-content {
+    margin-bottom: 27px;
+}
+
+a#ExcelExporter {
+    background-color: #722867;
+    border-color: #722867;
+}
+
+a#PDFExporter {
+    background-color: #4B3967;
+    border-color: #4B3967;
+}

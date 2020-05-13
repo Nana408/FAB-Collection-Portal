@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Linq;
@@ -27,12 +28,25 @@ namespace FAB_Merchant_Portal.Models
         public string ThirdPartyReferece { get; set; }
         public string CorebankingReference { get; set; }
         public string TransactionStatus { get; set; }
-
+        public string TellerId { get; set; }
+        public string BrachCode { get; set; }
         public string PrintAction { get; set; }
 
     }
 
-
+    public class AuditLog
+    {
+        public int Id { get; set; }
+        public string SourceIP { get; set; }
+        public string UserId { get; set; }
+        public string UserName { get; set; }
+        public string Activity { get; set; }
+        public string ActivityStatus { get; set; }
+        public string ActivityResponse { get; set; }
+        public DateTime? EntryDate { get; set; }
+        public DateTime? ExitDate { get; set; }
+      
+    }
     public class TokenResponse
     {
         public string access_token { get; set; }
@@ -161,26 +175,26 @@ namespace FAB_Merchant_Portal.Models
     }
 
 
-
     public class PayGhanaGovInvoiceResponse
     {
-        public int Status { get; set; }
-        public string Message { get; set; }
+        public int status { get; set; }
+        public string message { get; set; }
         public PayInvoiceResponseObject PayInvoiceResponseObject { get; set; }
     }
 
-
     public class PayInvoiceResponseObject
     {
-
-        public string InvoiceNumber { get; set; }
-        public int PaymentStatusCode { get; set; }
-        public string PaymentStatusText { get; set; }
-        public string PaymentReference { get; set; }
-        public string DateProcessed { get; set; }
-        public string Amount { get; set; }
-        public string Currency { get; set; }
+        public string invoiceNumber { get; set; }
+        public int paymentStatusCode { get; set; }
+        public string paymentStatusText { get; set; }
+        public string paymentReference { get; set; }
+        public string dateProcessed { get; set; }
+        public string amount { get; set; }
+        public string currency { get; set; }
+        public string coreBankingReference { get; set; }
+        
     }
+
 
 
 
@@ -274,4 +288,51 @@ namespace FAB_Merchant_Portal.Models
         public string CrDr { get; set; }
     }
 
+
+
+    public class ExportDetailsVM
+    {
+
+        [DisplayName("Invoice")]
+        [Display(Name = "Invoice")]
+        public string Identifier { get; set; }
+
+        [DisplayName("Teller Id")]
+        [Display(Name = "Teller Id")]
+        public string Branch { get; set; }
+
+        [DisplayName("Transaction Amount")]
+        [Display(Name = "Transaction Amount")]
+        public decimal? Amount { get; set; }
+
+
+        [DisplayName("TransactionT ype")]
+        [Display(Name = "Transaction Type")]
+        public string TransactionType { get; set; }
+
+        [DisplayName("Transaction Date")]
+        [Display(Name = "Transaction Date")]
+        public DateTime? EntryDate { get; set; }
+
+        [DisplayName("Core Banking Reference")]
+        [Display(Name = "Core Banking Reference")]
+        public string CoreBankingReference { get; set; }
+
+        [DisplayName("Third Party Reference")]
+        [Display(Name = "Third Party Reference")]
+        public string ThirdPartyReference { get; set; }
+
+        [DisplayName("Transaction Status")]
+        [Display(Name = "Transaction Status")]
+        public string TransactionStatus { get; set; }
+      
+    }
+
+    public class ExportRequest
+    {
+
+        public string StartDate { get; set; }
+
+        public string EndDate { get; set; }
+    }
 }

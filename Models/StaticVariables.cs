@@ -7,11 +7,11 @@ namespace FAB_Merchant_Portal.Models
 {
     public static class StaticVariables
     {
-        public static int  SUCCESSSTATUS = 1;
+        public static int SUCCESSSTATUS = 1;
 
         public static string SUCCESSSTATUSMASSAGE = "Request Successful";
 
-        public static int  FAILSTATUS = 0;
+        public static int FAILSTATUS = 0;
 
         public static string FAILSTATUSMASSAGE = "Request Failed";
 
@@ -32,6 +32,10 @@ namespace FAB_Merchant_Portal.Models
 
         public static string INVALIDPOINTINGACCOUNT = "Invalid credit reference provided";
 
-              public static string DUPLICATEPOINTINGACCOUNT = "Pointing Account Reference Already Exists";
+        public static string DUPLICATEPOINTINGACCOUNT = "Pointing Account Reference Already Exists";
+
+        public static string PAIDSTATUS = "PAID";
+
+        public static string INVOICEALREADYPAID = "Invoice is already paid";
     }
 }

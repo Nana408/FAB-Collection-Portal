@@ -17,8 +17,8 @@ namespace FAB_Merchant_Portal.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UserLog()
         {
-            this.TransactionLogs = new HashSet<TransactionLog>();
             this.PointingAccountReferences = new HashSet<PointingAccountReference>();
+            this.TransactionLogs = new HashSet<TransactionLog>();
         }
     
         public int Id { get; set; }
@@ -33,8 +33,8 @@ namespace FAB_Merchant_Portal.DAL
         public string ResponseBody { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TransactionLog> TransactionLogs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PointingAccountReference> PointingAccountReferences { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TransactionLog> TransactionLogs { get; set; }
     }
 }

@@ -1,22 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="FABMerchantPortalDBModelStoreContainer" CdmEntityContainer="FABMerchantPortalDBEntities">
-    <EntitySetMapping Name="UserLogs">
-      <EntityTypeMapping TypeName="FABMerchantPortalDBModel.UserLog">
-        <MappingFragment StoreEntitySet="UserLog">
-          <ScalarProperty Name="ResponseBody" ColumnName="ResponseBody" />
-          <ScalarProperty Name="RequestBody" ColumnName="RequestBody" />
-          <ScalarProperty Name="SourceName" ColumnName="SourceName" />
-          <ScalarProperty Name="SourceID" ColumnName="SourceID" />
-          <ScalarProperty Name="TransStatus" ColumnName="TransStatus" />
-          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-          <ScalarProperty Name="UserFunction" ColumnName="UserFunction" />
-          <ScalarProperty Name="UserAgent" ColumnName="UserAgent" />
-          <ScalarProperty Name="Id" ColumnName="Id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="TransactionLogs">
       <EntityTypeMapping TypeName="FABMerchantPortalDBModel.TransactionLog">
         <MappingFragment StoreEntitySet="TransactionLog">
@@ -50,6 +34,22 @@
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
           <ScalarProperty Name="Reference" ColumnName="Reference" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserLogs">
+      <EntityTypeMapping TypeName="FABMerchantPortalDBModel.UserLog">
+        <MappingFragment StoreEntitySet="UserLog">
+          <ScalarProperty Name="ResponseBody" ColumnName="ResponseBody" />
+          <ScalarProperty Name="RequestBody" ColumnName="RequestBody" />
+          <ScalarProperty Name="SourceName" ColumnName="SourceName" />
+          <ScalarProperty Name="SourceID" ColumnName="SourceID" />
+          <ScalarProperty Name="TransStatus" ColumnName="TransStatus" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="UserFunction" ColumnName="UserFunction" />
+          <ScalarProperty Name="UserAgent" ColumnName="UserAgent" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

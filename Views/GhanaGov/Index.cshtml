@@ -25,9 +25,18 @@
 
                             <form action="" method="post" novalidate="novalidate">
                                 <div class="form-group">
-                                    <label for="cc-invoice" class="control-label mb-1">Invoice Number <span class="required-indicator"> * </span></label>
+                                    <label for="cc-verifyBy" class="control-label mb-1">Verify By <span class="required-indicator"> * </span></label>
+                                    <div class="col-12 col-md-12">
+                                        <select name="select" id="select" class="form-control">
+                                            <option value="1">Invoice number</option>
+                                            <option value="2">Mobile Number</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cc-invoice" class="control-label mb-1">Invoice Number/Mobile number <span class="required-indicator"> * </span></label>
                                     <input id="cc-invoice" name="cc-payment" type="text" class="form-control" aria-required="true" aria-invalid="false">
-                                    <small class="help-block">Please enter your customer invoice</small>
+                                    <small class="help-block">Please enter your customer invoice or mobile number</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="cc-creditReference" class="control-label mb-1">Initial Credit Reference <span class="required-indicator"> * </span></label>

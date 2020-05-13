@@ -160,8 +160,12 @@ C:\inetpub\wwwroot\FABMerchantPortal\bin\System.Web.WebPages.Razor.xml
 C:\inetpub\wwwroot\FABMerchantPortal\bin\Newtonsoft.Json.xml
 C:\inetpub\wwwroot\FABMerchantPortal\bin\Antlr3.Runtime.pdb
 C:\inetpub\wwwroot\FABMerchantPortal\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\inetpub\wwwroot\FABMerchantPortal\obj\Debug\FAB Merchant Portal.csprojAssemblyReference.cache
 C:\inetpub\wwwroot\FABMerchantPortal\obj\Debug\FAB Merchant Portal.csproj.CoreCompileInputs.cache
 C:\inetpub\wwwroot\FABMerchantPortal\obj\Debug\FAB Merchant Portal.csproj.CopyComplete
 C:\inetpub\wwwroot\FABMerchantPortal\obj\Debug\FAB Merchant Portal.dll
 C:\inetpub\wwwroot\FABMerchantPortal\obj\Debug\FAB Merchant Portal.pdb
+C:\inetpub\wwwroot\FABMerchantPortal\bin\EPPlus.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\itextsharp.dll
+C:\inetpub\wwwroot\FABMerchantPortal\bin\EPPlus.xml
+C:\inetpub\wwwroot\FABMerchantPortal\bin\itextsharp.xml
+C:\inetpub\wwwroot\FABMerchantPortal\obj\Debug\FAB Merchant Portal.csprojAssemblyReference.cache

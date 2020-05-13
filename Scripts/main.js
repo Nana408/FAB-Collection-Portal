@@ -1709,6 +1709,125 @@ $(document).ready(function () {
     });
 });
 
+
+//Added Scripts
+
+$(document).ready(function () {
+    var getBankTransactionsServerSide = FABMerchantPortal.Urls.GetBankTransactionsServerSide;
+
+    $("#bankTransactionTable").DataTable({
+        "ajax": {
+            "url": getBankTransactionsServerSide,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "columns": [
+            { "data": "Amount", "name": "Amount" },
+            { "data": "TransactionType", "name": "TransactionType" },
+            { "data": "ThirdPartyReferece", "name": "ThirdPartyReferece" },
+            { "data": "CorebankingReference", "name": "CorebankingReference" },
+            { "data": "TransactionStatus", "name": "TransactionStatus" },
+            { "data": "TellerId", "name": "TellerId" },
+            { "data": "BranchCode", "name": "BranchCode" },
+            { "data": "EntryDate", "name": "EntryDate" },
+            { "data": "PrintAction", "name": "PrintAction" },
+        ],
+        "columnDefs": [
+            {
+                targets: 7, render: function (data) {
+                    return moment(data).format('LLLL');
+                }
+            }
+
+        ],
+
+        "serverSide": "true",
+        "order": [0, "asc"],
+        "processing": "true",
+        "language": {
+            "processing": "processing... please wait"
+        }
+
+    });
+});
+
+//Added Scripts
+
+$(document).ready(function () {
+    var getBranchTransactionsServerSide = FABMerchantPortal.Urls.GetBranchTransactionsServerSide;
+    $("#branchTransactionTable").DataTable({
+        "ajax": {
+            "url": getBranchTransactionsServerSide,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "columns": [
+            { "data": "Amount", "name": "Amount" },
+            { "data": "TransactionType", "name": "TransactionType" },
+            { "data": "ThirdPartyReferece", "name": "ThirdPartyReferece" },
+            { "data": "CorebankingReference", "name": "CorebankingReference" },
+            { "data": "TransactionStatus", "name": "TransactionStatus" },
+            { "data": "TellerId", "name": "TellerId" },
+            { "data": "EntryDate", "name": "EntryDate" },
+            { "data": "PrintAction", "name": "PrintAction" },
+        ],
+        "columnDefs": [
+            {
+                targets: 6, render: function (data) {
+                    return moment(data).format('LLLL');
+                }
+            }
+
+        ],
+
+        "serverSide": "true",
+        "order": [0, "asc"],
+        "processing": "true",
+        "language": {
+            "processing": "processing... please wait"
+        }
+
+    });
+});
+
+
+$(document).ready(function () {
+    var getAuditReportsServerSide = FABMerchantPortal.Urls.GetAuditReportsServerSide;
+    $("#auditTransactionTable").DataTable({
+        "ajax": {
+            "url": getAuditReportsServerSide,
+            "type": "POST",
+            "datatype": "json"
+        },
+        "columns": [
+            { "data": "SourceIP", "name": "SourceIP" }, 
+            { "data": "UserName", "name": "UserName" },
+            { "data": "Activity", "name": "Activity" },
+            { "data": "ActivityStatus", "name": "ActivityStatus" },
+            { "data": "ActivityResponse", "name": "ActivityResponse" },
+            { "data": "EntryDate", "name": "EntryDate" },
+          
+        ],
+        "columnDefs": [
+            {
+                targets: 5, render: function (data) {
+                    return moment(data).format('LLLL');
+                }  
+            }
+
+        ],
+
+        "serverSide": "true",
+        "order": [0, "asc"],
+        "processing": "true",
+        "language": {
+            "processing": "processing... please wait"
+        }
+
+    });
+});
+
+
 $(document).ready(function () {
 
     $('#payment-verify').click(function (e) {
